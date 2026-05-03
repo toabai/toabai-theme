@@ -23,60 +23,25 @@ function toabai_enqueue_assets() {
         [],
         wp_get_theme()->get('Version')
     );
+
+    $version = wp_get_theme()->get('Version');
+
+    wp_enqueue_script(
+        'toabai-menu',
+        get_template_directory_uri() . '/assets/js/menu.js',
+        [],
+        $version,
+        true
+    );
+    wp_script_add_data('toabai-menu', 'strategy', 'defer');
+
+    wp_enqueue_script(
+        'toabai-reveal',
+        get_template_directory_uri() . '/assets/js/reveal.js',
+        [],
+        $version,
+        true
+    );
+    wp_script_add_data('toabai-reveal', 'strategy', 'defer');
 }
 add_action('wp_enqueue_scripts', 'toabai_enqueue_assets');
-
-function toabai_mobile_menu_script() {
-    ?>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const btn = document.querySelector('.tm-menu-toggle');
-        const menu = document.querySelector('.tm-mobile-menu');
-        const closeBtn = document.querySelector('.tm-menu-close');
-
-        if (btn && menu) {
-          function closeMenu() {
-            menu.classList.remove('active');
-            btn.classList.remove('active');
-            document.body.classList.remove('tm-menu-open');
-            btn.setAttribute('aria-expanded', 'false');
-            menu.setAttribute('aria-hidden', 'true');
-          }
-
-          function openMenu() {
-            menu.classList.add('active');
-            btn.classList.add('active');
-            document.body.classList.add('tm-menu-open');
-            btn.setAttribute('aria-expanded', 'true');
-            menu.setAttribute('aria-hidden', 'false');
-          }
-
-          btn.addEventListener('click', function() {
-            if (menu.classList.contains('active')) {
-              closeMenu();
-            } else {
-              openMenu();
-            }
-          });
-
-          if (closeBtn) {
-            closeBtn.addEventListener('click', closeMenu);
-          }
-
-          const links = menu.querySelectorAll('a');
-
-          links.forEach(function(link) {
-            link.addEventListener('click', closeMenu);
-          });
-
-          document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-              closeMenu();
-            }
-          });
-        }
-      });
-    </script>
-    <?php
-}
-add_action('wp_footer', 'toabai_mobile_menu_script');
