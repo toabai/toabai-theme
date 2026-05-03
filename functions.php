@@ -45,3 +45,24 @@ function toabai_enqueue_assets() {
     wp_script_add_data('toabai-reveal', 'strategy', 'defer');
 }
 add_action('wp_enqueue_scripts', 'toabai_enqueue_assets');
+
+add_filter('body_class', function($classes) {
+
+    if (is_page('ueber-mich')) {
+        $classes[] = 'page-about';
+    }
+
+    if (is_page('wartung-betreuung')) {
+        $classes[] = 'page-wartung';
+    }
+
+    if (is_page('website-erstellen-lassen')) {
+        $classes[] = 'page-website';
+    }
+
+    if (is_page('referenzen')) {
+        $classes[] = 'page-references';
+    }
+
+    return $classes;
+});
