@@ -959,3 +959,59 @@ body.tm-menu-open { overflow: hidden; }
   .ueber-mich-page .tm-about-timeline,
   .ueber-mich-page .tm-about-process-grid { grid-template-columns: 1fr; }
 }
+
+/* =========================
+   Header Logo Fix
+========================= */
+
+.site-header .tm-logo {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.site-header .tm-logo:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.site-header .tm-logo-main,
+.site-header .tm-logo-dot,
+.site-header .tm-logo-sub {
+  display: inline;
+}
+
+/* =========================
+   Footer Logo Fix
+========================= */
+
+.site-footer .tm-logo {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.site-footer .tm-logo:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.site-footer .tm-logo-main,
+.site-footer .tm-logo-dot,
+.site-footer .tm-logo-sub {
+  display: inline;
+}
