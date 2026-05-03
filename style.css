@@ -1297,6 +1297,480 @@ h3 {
   border-radius: 22px;
 }
 
+
+/* =========================
+   Website erstellen lassen – Reparatur
+========================= */
+
+.tm-website,
+.tm-web-intro,
+.tm-references-preview,
+.tm-web-two-cards {
+  background: #ffffff;
+}
+
+.tm-web-hero {
+  padding: 120px 0;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(37, 99, 235, 0.22), transparent 34%),
+    var(--tm-bg-dark);
+  color: #ffffff;
+}
+
+.tm-web-hero p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.tm-web-hero .tm-eyebrow {
+  color: #bfdbfe;
+}
+
+.tm-website-grid,
+.tm-web-hero-grid,
+.tm-web-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 470px;
+  gap: 72px;
+  align-items: center;
+}
+
+.tm-web-preview {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #1f2937, #020617);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+  transform: rotate(-2deg);
+}
+
+.tm-browser-bar {
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tm-browser-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.tm-web-preview-content {
+  display: flex;
+  min-height: 300px;
+  align-items: center;
+  padding: 42px;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.32), transparent 35%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent);
+}
+
+.tm-web-preview-content p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+}
+
+.tm-device-preview {
+  position: relative;
+  min-height: 420px;
+}
+
+.tm-laptop {
+  display: flex;
+  min-height: 330px;
+  align-items: center;
+  justify-content: center;
+  border: 14px solid #111827;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+  box-shadow: var(--tm-shadow);
+}
+
+.tm-phone {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  display: flex;
+  width: 155px;
+  min-height: 250px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 10px solid #111827;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: var(--tm-shadow);
+}
+
+.tm-laptop p,
+.tm-phone p {
+  margin: 0;
+  color: var(--tm-text);
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  text-align: center;
+}
+
+.tm-laptop p {
+  font-size: 2rem;
+}
+
+.tm-phone p {
+  font-size: 1rem;
+}
+
+.tm-web-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tm-web-services-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 50px;
+  margin-bottom: 38px;
+}
+
+.tm-results {
+  background: var(--tm-bg-soft);
+}
+
+.tm-results-grid {
+  display: grid;
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap: 60px;
+  align-items: start;
+}
+
+.tm-web-testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.tm-web-testimonials blockquote {
+  margin: 0;
+  padding: 26px;
+  border: 1px solid var(--tm-border);
+  border-radius: var(--tm-radius-md);
+  background: #ffffff;
+  color: var(--tm-text);
+  box-shadow: 0 10px 34px rgba(15, 23, 42, 0.04);
+}
+
+.tm-web-two-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.tm-care-box {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(37, 99, 235, 0.16), transparent 35%),
+    #ffffff;
+}
+
+.tm-care-box .tm-btn {
+  margin-top: 1rem;
+}
+
+/* =========================
+   Referenzen – Reparatur
+========================= */
+
+.tm-references-hero {
+  padding: 120px 0 105px;
+}
+
+.tm-ref-hero-compact {
+  padding: 120px 0 90px;
+}
+
+.tm-ref-hero-compact .tm-btn {
+  margin-top: 10px;
+}
+
+.tm-logos {
+  padding: 80px 0 90px;
+}
+
+.tm-logos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 900px;
+  margin: 40px auto 20px;
+}
+
+.tm-logos-note {
+  margin-top: 32px;
+  color: var(--tm-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.tm-featured-ref {
+  padding: 140px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.tm-featured-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.9fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.tm-featured-content h2 {
+  margin-bottom: 16px;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+}
+
+.tm-featured-intro {
+  max-width: 520px;
+  margin-bottom: 26px;
+  font-size: 1.1rem;
+}
+
+.tm-featured-points p {
+  margin-bottom: 16px;
+}
+
+.tm-featured-content .tm-btn {
+  margin-top: 14px;
+}
+
+.tm-ref-cases {
+  padding: 110px 0 100px;
+  background: var(--tm-bg-soft);
+}
+
+.tm-ref-case-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 42px;
+}
+
+.tm-ref-case {
+  padding: 22px;
+  border: 1px solid var(--tm-border);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 34px rgba(15, 23, 42, 0.04);
+  opacity: 0.85;
+}
+
+.tm-ref-case h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.tm-ref-case p {
+  margin-bottom: 0.75rem;
+  font-size: 0.94rem;
+}
+
+.tm-ref-case p:last-child {
+  margin-bottom: 0;
+}
+
+.tm-ref-case strong {
+  color: var(--tm-text);
+}
+
+.tm-ref-content {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.tm-ref-content h3 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.tm-ref-content p {
+  margin: 0;
+  color: var(--tm-muted);
+  font-size: 0.9rem;
+}
+
+.references-page .tm-testimonials {
+  padding: 95px 0 105px;
+  background: #ffffff;
+}
+
+.references-page .tm-final-cta {
+  padding: 110px 0;
+}
+
+/* =========================
+   Über mich – Reparatur
+========================= */
+
+.tm-about-card {
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--tm-radius-lg);
+  background:
+    radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.35), transparent 42%),
+    rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.32);
+}
+
+.tm-about-card-label {
+  margin-bottom: 0.9rem;
+  color: #bfdbfe;
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.tm-about-card h2 {
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.tm-about-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tm-about-card li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tm-about-card li:last-child {
+  border-bottom: 0;
+}
+
+.tm-about-card li span {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.tm-about-card li strong {
+  color: #ffffff;
+}
+
+.tm-about-visual::before {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  z-index: 0;
+  border-radius: 42px;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(37, 99, 235, 0.32), transparent 45%),
+    rgba(255, 255, 255, 0.05);
+}
+
+.tm-about-visual img {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   Unterseiten Responsive Reparatur
+========================= */
+
+@media (max-width: 1020px) {
+  .tm-web-hero-grid,
+  .tm-website-grid,
+  .tm-web-intro-grid,
+  .tm-featured-grid,
+  .tm-about-hero-grid,
+  .tm-results-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .tm-about-card {
+    max-width: 520px;
+  }
+
+  .tm-about-visual {
+    max-width: 480px;
+    margin-left: 0;
+  }
+
+  .tm-web-services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tm-ref-case-grid,
+  .tm-logos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 740px) {
+  .tm-web-hero,
+  .tm-about-hero,
+  .tm-references-hero {
+    padding: 88px 0 76px;
+  }
+
+  .tm-web-benefits,
+  .tm-web-services-grid,
+  .tm-reference-grid,
+  .tm-web-testimonials,
+  .tm-web-two-grid,
+  .tm-ref-case-grid,
+  .tm-logos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tm-device-preview {
+    min-height: 360px;
+  }
+
+  .tm-laptop {
+    min-height: 260px;
+  }
+
+  .tm-phone {
+    right: 0;
+    width: 130px;
+    min-height: 210px;
+  }
+
+  .tm-about-visual {
+    max-width: 100%;
+  }
+
+  .tm-about-overlay {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    max-width: none;
+  }
+
+  .tm-about-card {
+    padding: 24px;
+  }
+}
+
+
+
 /* =========================
    Standard Content
 ========================= */
