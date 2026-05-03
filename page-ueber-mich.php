@@ -79,26 +79,26 @@ get_header();
       <p class="tm-eyebrow tm-center">Hintergrund</p>
       <h2 class="tm-center">Technisches Verständnis, praktische Erfahrung und ein klarer Fokus.</h2>
 
-      <div class="tm-problem-grid">
-        <div class="tm-mini-card">
+      <div class="tm-about-timeline">
+        <div class="tm-about-timeline-item">
           <span class="tm-icon">01</span>
           <h3>Studium</h3>
           <p>Medientechnik, Mediendesign, Medieninformatik und Medienproduktion.</p>
         </div>
 
-        <div class="tm-mini-card">
+        <div class="tm-about-timeline-item">
           <span class="tm-icon">02</span>
           <h3>Abschluss</h3>
           <p>Master of Engineering mit technischem Schwerpunkt.</p>
         </div>
 
-        <div class="tm-mini-card">
+        <div class="tm-about-timeline-item">
           <span class="tm-icon">03</span>
           <h3>WordPress</h3>
           <p>Erfahrung mit WordPress seit 2010.</p>
         </div>
 
-        <div class="tm-mini-card">
+        <div class="tm-about-timeline-item">
           <span class="tm-icon">04</span>
           <h3>Praxis</h3>
           <p>toabai.media seit 2014, Agenturerfahrung in Berlin und Datenschutz-Qualifikation.</p>
@@ -165,7 +165,7 @@ get_header();
       <p class="tm-eyebrow tm-center">Zusammenarbeit</p>
       <h2 class="tm-center">Unkompliziert, direkt und verlässlich.</h2>
 
-      <div class="tm-process-grid">
+      <div class="tm-about-process-grid">
         <div>
           <span>1</span>
           <h3>Kontakt</h3>
