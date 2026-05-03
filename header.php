@@ -38,7 +38,7 @@
     }
     ?>
 
-    <a class="tm-header-cta" href="/kontakt/">Wartung starten</a>
+    <a class="tm-header-cta" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Wartung starten</a>
 
     <button class="tm-menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false">
       <span></span>
@@ -74,6 +74,6 @@
   }
   ?>
 
-  <a class="tm-mobile-cta" href="/kontakt/">Wartung starten</a>
+  <a class="tm-mobile-cta" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Wartung starten</a>
 
 </div>

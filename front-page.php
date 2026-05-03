@@ -29,7 +29,7 @@
           Schick mir deine Website. Ich schaue sie mir an und gebe dir eine ehrliche Einschätzung.
         </p>
 
-        <a class="tm-btn tm-btn-blue" href="/kontakt/">
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">
           Website prüfen lassen
         </a>
 
@@ -99,7 +99,7 @@
 
       </div>
 
-      <a class="tm-btn tm-btn-danger" href="/kontakt/">Website jetzt prüfen lassen</a>
+      <a class="tm-btn tm-btn-danger" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website jetzt prüfen lassen</a>
     </div>
 
   </div>
@@ -183,7 +183,7 @@
 
 <div class="tm-cta-block">
 
-  <a class="tm-btn tm-btn-blue" href="/kontakt/">
+  <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">
     Website prüfen lassen
   </a>
 
@@ -317,7 +317,7 @@
         <p class="tm-eyebrow">Bereit?</p>
         <h2>Finde heraus, wie gut deine Website wirklich gepflegt ist.</h2>
         <p>Ich prüfe deine Website und gebe dir eine ehrliche Einschätzung.</p>
-        <a class="tm-btn tm-btn-blue" href="/kontakt/">Website prüfen lassen</a>
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website prüfen lassen</a>
       </div>
     </div>
   </section>

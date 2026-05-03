@@ -17,7 +17,7 @@ get_header();
         </p>
 
         <div class="tm-actions">
-          <a class="tm-btn tm-btn-blue" href="/kontakt/">Website anfragen</a>
+          <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website anfragen</a>
         </div>
       </div>
 
@@ -91,7 +91,7 @@ get_header();
       </div>
 
       <div class="tm-center">
-        <a class="tm-btn tm-btn-blue" href="/kontakt/">Website anfragen</a>
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website anfragen</a>
       </div>
     </div>
   </section>
@@ -129,7 +129,7 @@ get_header();
       </div>
 
       <div class="tm-center">
-        <a class="tm-btn tm-btn-light" href="/referenzen/">Mehr Referenzen ansehen</a>
+        <a class="tm-btn tm-btn-light" href="<?php echo esc_url(home_url('/referenzen/')); ?>">Mehr Referenzen ansehen</a>
       </div>
     </div>
   </section>
@@ -176,7 +176,7 @@ get_header();
         <p>
           Ich denke die laufende Betreuung von Anfang an mit. So bleibt deine Website sicher, aktuell und zuverlässig.
         </p>
-        <a class="tm-btn tm-btn-blue" href="/wartung-betreuung/">Mehr über Wartung erfahren</a>
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/wartung-betreuung/')); ?>">Mehr über Wartung erfahren</a>
       </div>
     </div>
   </section>
@@ -224,7 +224,7 @@ get_header();
         </div>
 
         <div class="tm-actions">
-          <a class="tm-btn tm-btn-blue" href="/kontakt/">Website anfragen</a>
+          <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website anfragen</a>
         </div>
       </div>
     </div>

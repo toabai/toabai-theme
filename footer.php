@@ -10,7 +10,7 @@
         WordPress Wartung, Betreuung und Websites, die langfristig funktionieren.
       </p>
 
-      <a class="tm-footer-cta" href="/kontakt/">Website prüfen lassen</a>
+      <a class="tm-footer-cta" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website prüfen lassen</a>
     </div>
 
     <div class="tm-footer-grid">
@@ -18,27 +18,27 @@
       <div>
         <strong>Leistungen</strong>
         <ul>
-          <li><a href="/wartung-betreuung/">Wartung & Betreuung</a></li>
-          <li><a href="/website-erstellen/">Website erstellen lassen</a></li>
+          <li><a href="<?php echo esc_url(home_url('/wartung-betreuung/')); ?>">Wartung & Betreuung</a></li>
+          <li><a href="<?php echo esc_url(home_url('/website-erstellen-lassen/')); ?>">Website erstellen lassen</a></li>
         </ul>
       </div>
 
       <div>
         <strong>Wissen</strong>
         <ul>
-          <li><a href="/wissen/">Wissen & Ratgeber</a></li>
-          <li><a href="/wissen/wordpress-wartung-kosten/">WordPress Wartung Kosten</a></li>
-          <li><a href="/wissen/wordpress-updates/">WordPress Updates</a></li>
-          <li><a href="/wissen/website-gehackt/">Website gehackt?</a></li>
+          <li><a href="<?php echo esc_url(home_url('/wissen/')); ?>">Wissen & Ratgeber</a></li>
+          <li><a href="<?php echo esc_url(home_url('/wissen/wordpress-wartung-kosten/')); ?>">WordPress Wartung Kosten</a></li>
+          <li><a href="<?php echo esc_url(home_url('/wissen/wordpress-updates/')); ?>">WordPress Updates</a></li>
+          <li><a href="<?php echo esc_url(home_url('/wissen/website-gehackt/')); ?>">Website gehackt?</a></li>
         </ul>
       </div>
 
       <div>
         <strong>toabai.media</strong>
         <ul>
-          <li><a href="/referenzen/">Referenzen</a></li>
-          <li><a href="/ueber-mich/">Über mich</a></li>
-          <li><a href="/kontakt/">Kontakt</a></li>
+          <li><a href="<?php echo esc_url(home_url('/referenzen/')); ?>">Referenzen</a></li>
+          <li><a href="<?php echo esc_url(home_url('/ueber-mich/')); ?>">Über mich</a></li>
+          <li><a href="<?php echo esc_url(home_url('/kontakt/')); ?>">Kontakt</a></li>
 		  <li><a href="https://cloud.toabai.media">Cloud</a></li>	
         </ul>
       </div>
@@ -46,9 +46,9 @@
       <div>
         <strong>Rechtliches</strong>
         <ul>
-          <li><a href="/impressum/">Impressum</a></li>
-          <li><a href="/datenschutz/">Datenschutz</a></li>
-		  <li><a href="/datenschutz/">AGB</a></li>
+          <li><a href="<?php echo esc_url(home_url('/impressum/')); ?>">Impressum</a></li>
+          <li><a href="<?php echo esc_url(home_url('/datenschutz/')); ?>">Datenschutz</a></li>
+		  <li><a href="<?php echo esc_url(home_url('/datenschutz/')); ?>">AGB</a></li>
         </ul>
       </div>
 

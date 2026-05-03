@@ -14,8 +14,8 @@
         </p>
 
         <div class="tm-actions">
-          <a class="tm-btn tm-btn-dark" href="/kontakt/">Wartung starten</a>
-          <a class="tm-btn tm-btn-light" href="/wartung-betreuung/">Website prüfen lassen</a>
+          <a class="tm-btn tm-btn-dark" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Wartung starten</a>
+          <a class="tm-btn tm-btn-light" href="<?php echo esc_url(home_url('/wartung-betreuung/')); ?>">Website prüfen lassen</a>
         </div>
 
         <div class="tm-proof">
@@ -117,7 +117,7 @@
           </div>
         </div>
 
-        <a class="tm-btn tm-btn-white" href="/wartung-betreuung/">Mehr zur Wartung</a>
+        <a class="tm-btn tm-btn-white" href="<?php echo esc_url(home_url('/wartung-betreuung/')); ?>">Mehr zur Wartung</a>
       </div>
 
       <div class="tm-price-card">
@@ -129,7 +129,7 @@
           <li>Backup-Kontrolle</li>
           <li>Persönliche Betreuung</li>
         </ul>
-        <a class="tm-btn tm-btn-blue" href="/kontakt/">Wartung anfragen</a>
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Wartung anfragen</a>
         <small>Transparent, persönlich und ohne unnötige Komplexität.</small>
       </div>
     </div>
@@ -195,7 +195,7 @@
           <li>Ideal kombinierbar mit Wartung und Betreuung</li>
         </ul>
 
-        <a class="tm-btn tm-btn-light" href="/website-erstellen/">Mehr zur Website-Erstellung</a>
+        <a class="tm-btn tm-btn-light" href="<?php echo esc_url(home_url('/website-erstellen-lassen/')); ?>">Mehr zur Website-Erstellung</a>
       </div>
     </div>
   </section>
@@ -326,8 +326,8 @@
         </div>
 
         <div class="tm-actions">
-          <a class="tm-btn tm-btn-white" href="/kontakt/">Wartung starten</a>
-          <a class="tm-btn tm-btn-outline" href="/wartung-betreuung/">Website prüfen lassen</a>
+          <a class="tm-btn tm-btn-white" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Wartung starten</a>
+          <a class="tm-btn tm-btn-outline" href="<?php echo esc_url(home_url('/wartung-betreuung/')); ?>">Website prüfen lassen</a>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ get_header();
       sondern echte Projekte aus dem Alltag.
     </p>
     <div class="tm-actions tm-center">
-      <a href="/kontakt" class="tm-btn tm-btn-blue">Projekt anfragen</a>
+      <a href="<?php echo esc_url(home_url('/kontakt/')); ?>" class="tm-btn tm-btn-blue">Projekt anfragen</a>
     </div>
   </div>
 </section>
@@ -254,7 +254,7 @@ get_header();
       </div>
 
       <div class="tm-actions">
-        <a href="/kontakt" class="tm-btn tm-btn-blue">Projekt anfragen</a>
+        <a href="<?php echo esc_url(home_url('/kontakt/')); ?>" class="tm-btn tm-btn-blue">Projekt anfragen</a>
       </div>
     </div>
   </div>
