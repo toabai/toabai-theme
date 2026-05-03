@@ -99,7 +99,7 @@
 
       </div>
 
-      <a class="tm-btn tm-btn-danger" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website jetzt prüfen lassen</a>
+      <a class="tm-btn tm-btn-blue"  href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website jetzt prüfen lassen</a>
     </div>
 
   </div>
