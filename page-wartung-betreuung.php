@@ -22,7 +22,7 @@ get_header();
         </p>
 
         <div class="tm-actions">
-          <a class="tm-btn tm-btn-blue" href="/kontakt/">Website prüfen lassen</a>
+          <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website prüfen lassen</a>
           <a class="tm-btn tm-btn-light" href="#paket">Wartung ansehen</a>
         </div>
 
@@ -118,7 +118,7 @@ get_header();
 </div>
 
       <div class="tw-center">
-        <a class="tm-btn tm-btn-blue" href="/kontakt/">Website prüfen lassen</a>
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website prüfen lassen</a>
       </div>
 
     </div>
@@ -139,7 +139,7 @@ get_header();
           und du bei Problemen nicht alleine dastehst.
         </p>
 
-        <a class="tm-btn tm-btn-blue" href="/kontakt/">Kostenlose Einschätzung erhalten</a>
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Kostenlose Einschätzung erhalten</a>
 
         <p class="tw-micro">
           Ich schaue mir deine Website an und sage dir ehrlich, wo du stehst.
@@ -273,7 +273,7 @@ get_header();
           <li>Persönlicher Ansprechpartner</li>
         </ul>
 
-        <a class="tm-btn tm-btn-blue" href="/kontakt/">Wartung anfragen</a>
+        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Wartung anfragen</a>
 
         <small>Transparent. Persönlich. Ohne unnötige Komplexität.</small>
       </div>
@@ -368,7 +368,7 @@ get_header();
         Ich prüfe deine Website und gebe dir eine ehrliche Einschätzung.
       </p>
 
-      <a class="tm-btn tm-btn-blue" href="/kontakt/">Website prüfen lassen</a>
+      <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">Website prüfen lassen</a>
 
     </div>
   </section>
