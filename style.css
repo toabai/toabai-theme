@@ -1058,3 +1058,46 @@ body.tm-menu-open { overflow: hidden; }
 .site-footer .tm-logo-sub {
   display: inline;
 }
+
+/* =========================
+   Startseite Website Check
+========================= */
+
+.tm-website-check-card {
+  display: block;
+}
+
+.tm-website-check-field {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.tm-website-check-field input {
+  width: 100%;
+  height: 54px;
+  padding: 0 18px;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: var(--tm-text);
+  font-size: 0.96rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.tm-website-check-field input:focus {
+  outline: none;
+  border-color: var(--tm-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.tm-website-check-field .tm-btn {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+.tm-website-check-card small {
+  margin-top: 14px;
+}

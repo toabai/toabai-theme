@@ -22,19 +22,29 @@
         </ul>
       </div>
 
-      <div class="tm-start-form-card">
-        <p class="tm-form-label">Kostenlose Erstprüfung</p>
-        <h2>Website prüfen lassen</h2>
-        <p>
-          Schick mir deine Website. Ich schaue sie mir an und gebe dir eine ehrliche Einschätzung.
-        </p>
+      <form class="tm-start-form-card tm-website-check-card" action="<?php echo esc_url(home_url('/kontakt/')); ?>" method="get">
+  <p class="tm-form-label">Kostenlose Erstprüfung</p>
 
-        <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/kontakt/')); ?>">
-          Website prüfen lassen
-        </a>
+  <h2>Website prüfen lassen</h2>
 
-        <small>Unverbindlich. Persönlich. Ohne Verkaufsdruck.</small>
-      </div>
+  <p>
+    Gib deine Website ein. Ich schaue sie mir an und gebe dir eine ehrliche Einschätzung.
+  </p>
+
+  <div class="tm-website-check-field">
+    <input
+      type="url"
+      name="website"
+      placeholder="https://deine-website.de"
+      required
+    >
+    <button class="tm-btn tm-btn-blue" type="submit">
+      Prüfen lassen
+    </button>
+  </div>
+
+  <small>Keine automatische Fantasie-Auswertung. Du bekommst eine echte persönliche Einschätzung.</small>
+</form>
 
     </div>
   </section>
