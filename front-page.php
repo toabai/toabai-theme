@@ -23,7 +23,7 @@
         </ul>
       </div>
 
-      <form class="tm-start-form-card tm-website-check-card" action="<?php echo esc_url(home_url('/website-pruefen/')); ?>" method="get">
+     <form class="tm-start-form-card tm-website-check-card tm-check-form" action="<?php echo esc_url(home_url('/website-pruefen/')); ?>" method="get">
         <p class="tm-form-label">Kostenlose Erstprüfung</p>
 
         <h2>Website prüfen lassen</h2>
@@ -40,12 +40,14 @@ Wo Probleme sind. Was du verbessern solltest. Und ob Handlungsbedarf besteht.
         </ul>
 
         <div class="tm-website-check-field">
-          <input
-            type="url"
-            name="website"
-            placeholder="https://deine-website.de"
-            required
-          >
+        <input
+  type="text"
+  name="website"
+  placeholder="deine-website.de"
+  inputmode="url"
+  autocomplete="url"
+  required
+>
           <button class="tm-btn tm-btn-blue" type="submit">
             Prüfen lassen
           </button>
@@ -331,5 +333,85 @@ Wo Probleme sind. Was du verbessern solltest. Und ob Handlungsbedarf besteht.
   </section>
 
 </main>
+
+<div class="tm-scan-loader" id="tmScanLoader">
+  <div class="tm-scan-loader-inner">
+
+    <div class="tm-scan-step">
+      Website wird geprüft
+    </div>
+
+    <p class="tm-scan-note">
+      Bitte kurz warten. Die erste Einschätzung wird vorbereitet.
+    </p>
+
+    <div class="tm-scan-dots">
+      <i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <div class="tm-scan-brand">
+      Analyse durch <strong>toabai.media</strong>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const forms = document.querySelectorAll('.tm-check-form, .tm-website-check-card, form[action*="website-pruefen"]');
+
+  const steps = [
+    'Website wird geladen',
+    'Weiterleitungen werden verfolgt',
+    'Antwortzeit wird gemessen',
+    'SSL wird geprüft',
+    'WordPress-Signale werden gesucht',
+    'Sicherheitsheader werden analysiert',
+    'Erste Einschätzung wird vorbereitet'
+  ];
+
+  function normalizeWebsiteInput(value) {
+    let url = value.trim();
+
+    url = url.replace(/\s+/g, '');
+    url = url.replace(/^https?:\/\//i, '');
+    url = url.replace(/\/+$/g, '');
+
+    if (url && !url.includes('.')) {
+      url = url + '.de';
+    }
+
+    return 'https://' + url;
+  }
+
+  forms.forEach(function(form) {
+    form.addEventListener('submit', function() {
+      const websiteInput = form.querySelector('input[name="website"]');
+
+      if (websiteInput && websiteInput.value.trim() !== '') {
+        websiteInput.value = normalizeWebsiteInput(websiteInput.value);
+      }
+
+      const loader = document.getElementById('tmScanLoader');
+      const stepEl = document.querySelector('.tm-scan-step');
+
+      if (loader) {
+        loader.classList.add('is-visible');
+        loader.setAttribute('aria-hidden', 'false');
+      }
+
+      if (stepEl) {
+        let i = 0;
+        stepEl.textContent = steps[i];
+
+        setInterval(function () {
+          i = (i + 1) % steps.length;
+          stepEl.textContent = steps[i];
+        }, 750);
+      }
+    });
+  });
+});
+</script>
 
 <?php get_footer(); ?>
