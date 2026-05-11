@@ -66,3 +66,5 @@ add_filter('body_class', function($classes) {
 
     return $classes;
 });
+
+require_once get_template_directory() . '/inc/diagnosis.php';
