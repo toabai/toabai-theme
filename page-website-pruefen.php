@@ -1,28 +1,16 @@
-<?php get_header(); ?>
-
-
-<main id="content" class="toabai-page website-check-page website-check-page-single">
-
-<div style="padding:40px;background:red;color:white;font-size:30px;">
-  TEMPLATE WEBSITE-PRUEFEN WIRD GELADEN
-</div>
-
 <?php
 $website = '';
+$is_post_request = isset($_SERVER['REQUEST_METHOD']) && strtoupper($_SERVER['REQUEST_METHOD']) === 'POST';
+$is_check_request = $is_post_request && isset($_POST['tm_check_request']);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['website'])) {
-  $website = esc_url_raw($_POST['website']);
+if ($is_post_request && !empty($_POST['website'])) {
+  $website = esc_url_raw(wp_unslash($_POST['website']));
 } elseif (!empty($_GET['website'])) {
-  $website = esc_url_raw($_GET['website']);
+  $website = esc_url_raw(wp_unslash($_GET['website']));
 }
 
 $success = false;
 $mail_sent = false;
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  echo '<div style="padding:30px;background:red;color:white;font-size:24px;font-weight:bold;">POST KOMMT AN</div>';
-}
 
 $check_results = [];
 $visible_results = [];
@@ -1170,6 +1158,10 @@ function tm_run_website_check($url, &$site_facts) {
 $website = tm_normalize_website_url($website);
 $website_display = !empty($website) ? tm_shorten_url_middle($website, 50) : '';
 $website_host = !empty($website) ? tm_get_host_from_url($website) : '';
+$check_page_url = get_permalink();
+$post_action_url = !empty($website)
+  ? add_query_arg('website', $website, $check_page_url)
+  : $check_page_url;
 
 if (!empty($website)) {
   $check_results = tm_run_website_check($website, $site_facts);
@@ -1201,11 +1193,11 @@ if (!empty($website)) {
   $special_findings = tm_get_special_findings($site_facts);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tm_check_request'])) {
+if ($is_check_request) {
 
-  $name  = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
-  $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
-  $site  = isset($_POST['website']) ? esc_url_raw($_POST['website']) : '';
+  $name  = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
+  $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+  $site  = isset($_POST['website']) ? tm_normalize_website_url(wp_unslash($_POST['website'])) : '';
 
   $success = false;
 
@@ -1281,14 +1273,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tm_check_request'])) 
 
     $mail_sent = wp_mail($to, $subject, $body, $headers);
 
-    /* TEST: Zeigt, ob das Formular überhaupt verarbeitet wurde */
-    echo '<div style="padding:30px;background:#16a34a;color:white;font-size:22px;font-weight:bold;">POST wurde verarbeitet</div>';
-
-    /* Erfolgsmeldung anzeigen, auch wenn Mailzustellung nicht funktioniert */
     $success = true;
   }
 }
 ?>
+
+<?php get_header(); ?>
+
+
+<div style="padding:30px;background:#16a34a;color:white;font-size:26px;font-weight:bold;">
+  CONTENT NACH HEADER WIRD AUSGEGEBEN
+</div>
+
+<main id="content" class="toabai-page website-check-page website-check-page-single">
 
 <section class="tm-check-single-hero tm-check-signal-hero">
   <div class="tm-container tm-check-single-wrap">
@@ -1949,7 +1946,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tm_check_request'])) 
                 welche Punkte regelmäßig betreut werden sollten.
               </p>
 
-              <form method="post" action="" class="tm-form tm-check-form">
+              <form method="post" action="<?php echo esc_url(add_query_arg('website', rawurlencode($website), get_permalink())); ?>" class="tm-form tm-check-form">
                 <input type="hidden" name="tm_check_request" value="1">
                 <input type="text" name="name" placeholder="Dein Name" required>
                 <input type="email" name="email" placeholder="E-Mail" required>
@@ -1985,7 +1982,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tm_check_request'])) 
                 Öffentlich war WordPress in diesem Mini-Check nicht eindeutig erkennbar.
               </p>
 
-             <form method="post" action="" class="tm-form tm-check-form">
+             <form method="post" action="<?php echo esc_url(add_query_arg('website', rawurlencode($website), get_permalink())); ?>" class="tm-form tm-check-form">
                 <input type="hidden" name="tm_check_request" value="1">
                 <input type="text" name="name" placeholder="Dein Name" required>
                 <input type="email" name="email" placeholder="E-Mail" required>

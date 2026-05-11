@@ -67,4 +67,16 @@ add_filter('body_class', function($classes) {
     return $classes;
 });
 
+add_filter('redirect_canonical', function($redirect_url) {
+    if (
+        isset($_SERVER['REQUEST_METHOD'])
+        && strtoupper($_SERVER['REQUEST_METHOD']) === 'POST'
+        && !empty($_POST['tm_check_request'])
+    ) {
+        return false;
+    }
+
+    return $redirect_url;
+});
+
 require_once get_template_directory() . '/inc/diagnosis.php';
