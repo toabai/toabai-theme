@@ -1273,7 +1273,7 @@ if (!empty($website) && empty($success)) {
           <span>Deine Website: <strong><?php echo esc_html($website_host); ?></strong></span>
           <span>Geprüft am: <?php echo esc_html($scan_time); ?> Uhr</span>
         </div>
-
+      
         <?php if (!empty($site_facts['redirect_detected'])) : ?>
           <div class="tm-redirect-notice">
             <strong>Weiterleitung erkannt:</strong>
@@ -1487,10 +1487,7 @@ if (!empty($website) && empty($success)) {
 
               <!-- NEUER COMPACT HEADER -->
               <!-- START -->
-              <div class="tm-check-report-meta">
-                <span>Deine Website: <strong><?php echo esc_html($website_host); ?></strong></span>
-                <span>Geprüft am: <?php echo esc_html($scan_time); ?> Uhr</span>
-              </div>
+              
 
               <div class="tm-check-score-strip tm-check-score-strip-<?php echo esc_attr(tm_get_maintenance_status($score_points, $risk_count)); ?>">
 
