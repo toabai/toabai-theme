@@ -67,16 +67,49 @@ add_filter('body_class', function($classes) {
     return $classes;
 });
 
+function toabai_is_website_pruefen_request() {
+    $path = isset($_SERVER['REQUEST_URI'])
+        ? wp_parse_url(wp_unslash($_SERVER['REQUEST_URI']), PHP_URL_PATH)
+        : '';
+
+    return trim((string) $path, '/') === 'website-pruefen';
+}
+
 add_filter('redirect_canonical', function($redirect_url) {
     if (
-        isset($_SERVER['REQUEST_METHOD'])
+        toabai_is_website_pruefen_request()
+        && isset($_SERVER['REQUEST_METHOD'])
         && strtoupper($_SERVER['REQUEST_METHOD']) === 'POST'
-        && !empty($_POST['tm_check_request'])
     ) {
         return false;
     }
 
     return $redirect_url;
+});
+
+add_action('template_redirect', function() {
+    if (!toabai_is_website_pruefen_request()) {
+        return;
+    }
+
+    global $wp_query;
+
+    if ($wp_query) {
+        $wp_query->is_404 = false;
+        $wp_query->is_page = true;
+    }
+
+    status_header(200);
+});
+
+add_filter('template_include', function($template) {
+    if (!toabai_is_website_pruefen_request()) {
+        return $template;
+    }
+
+    $website_check_template = get_template_directory() . '/page-website-pruefen.php';
+
+    return file_exists($website_check_template) ? $website_check_template : $template;
 });
 
 require_once get_template_directory() . '/inc/diagnosis.php';

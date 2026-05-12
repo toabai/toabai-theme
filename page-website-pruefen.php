@@ -15,6 +15,20 @@ $mail_sent = false;
 $check_results = [];
 $visible_results = [];
 $hidden_results = [];
+$report_areas = [
+  'security' => ['status' => 'good', 'text' => 'Okay'],
+  'maintainability' => ['status' => 'good', 'text' => 'Okay'],
+  'performance' => ['status' => 'good', 'text' => 'Okay'],
+  'seo' => ['status' => 'good', 'text' => 'Okay'],
+  'privacy' => ['status' => 'good', 'text' => 'Okay'],
+];
+$diagnosis_signals = [
+  'special' => [],
+  'important' => [],
+  'technology' => [],
+  'summary' => [],
+];
+$special_findings = [];
 
 $score_points = 0;
 $risk_count = 0;
@@ -56,13 +70,15 @@ $site_facts = [
   'wordpress_signals' => [],
 ];
 
-function tm_shorten_url_middle($url, $max = 50) {
+function tm_shorten_url_middle($url, $max = 50)
+{
   if (strlen($url) <= $max) return $url;
   $keep = intval(($max - 3) / 2);
   return substr($url, 0, $keep) . '...' . substr($url, -$keep);
 }
 
-function tm_normalize_website_url($url) {
+function tm_normalize_website_url($url)
+{
   $url = trim($url);
   if (empty($url)) return '';
 
@@ -77,12 +93,14 @@ function tm_normalize_website_url($url) {
   return esc_url_raw('https://' . $url);
 }
 
-function tm_get_host_from_url($url) {
+function tm_get_host_from_url($url)
+{
   $host = wp_parse_url($url, PHP_URL_HOST);
   return $host ? preg_replace('#^www\.#', '', $host) : $url;
 }
 
-function tm_get_final_response_url($response, $fallback_url) {
+function tm_get_final_response_url($response, $fallback_url)
+{
   if (is_wp_error($response)) {
     return esc_url_raw($fallback_url);
   }
@@ -98,7 +116,8 @@ function tm_get_final_response_url($response, $fallback_url) {
   return esc_url_raw($fallback_url);
 }
 
-function tm_is_safe_public_url($url) {
+function tm_is_safe_public_url($url)
+{
   $parts = wp_parse_url($url);
   if (empty($parts['host']) || empty($parts['scheme'])) return false;
   if (!in_array($parts['scheme'], ['http', 'https'], true)) return false;
@@ -114,7 +133,8 @@ function tm_is_safe_public_url($url) {
   return true;
 }
 
-function tm_check_item($label, $status, $text, $category = 'Wartung', $weight = 1, $priority = 5, $metric = '', $meaning = '', $tech = []) {
+function tm_check_item($label, $status, $text, $category = 'Wartung', $weight = 1, $priority = 5, $metric = '', $meaning = '', $tech = [])
+{
   return [
     'label' => $label,
     'status' => $status,
@@ -128,7 +148,8 @@ function tm_check_item($label, $status, $text, $category = 'Wartung', $weight = 
   ];
 }
 
-function tm_detect_plugins_and_theme($body) {
+function tm_detect_plugins_and_theme($body)
+{
   $plugins = [];
   $theme = '';
 
@@ -154,7 +175,8 @@ function tm_detect_plugins_and_theme($body) {
   ];
 }
 
-function tm_detect_wordpress_signals($body) {
+function tm_detect_wordpress_signals($body)
+{
   $signals = [];
 
   if (preg_match('#/wp-content/#i', $body)) {
@@ -188,7 +210,8 @@ function tm_detect_wordpress_signals($body) {
   return array_values(array_unique($signals));
 }
 
-function tm_score_results($results) {
+function tm_score_results($results)
+{
   $points = 0;
   $max = 0;
   $risks = 0;
@@ -219,31 +242,36 @@ function tm_score_results($results) {
   ];
 }
 
-function tm_get_maintenance_level($score, $risks) {
+function tm_get_maintenance_level($score, $risks)
+{
   if ($score >= 8 && $risks <= 3) return 'niedrig bis mittel';
   if ($score >= 6) return 'mittel';
   return 'hoch';
 }
 
-function tm_get_maintenance_status($score, $risks) {
+function tm_get_maintenance_status($score, $risks)
+{
   if ($score >= 8 && $risks <= 3) return 'warning';
   if ($score >= 6) return 'warning';
   return 'bad';
 }
 
-function tm_get_maintenance_percent($score, $risks) {
+function tm_get_maintenance_percent($score, $risks)
+{
   $percent = 100 - ($score * 8);
   $percent += min($risks * 4, 24);
   return max(18, min(88, $percent));
 }
 
-function tm_get_report_headline($score, $risks) {
+function tm_get_report_headline($score, $risks)
+{
   if ($score >= 8 && $risks <= 3) return 'Deine Website läuft. Aber Wartung bleibt wichtig.';
   if ($score >= 6) return 'Deine Website läuft, zeigt aber Wartungssignale.';
   return 'Deine Website zeigt deutliche Wartungssignale.';
 }
 
-function tm_get_maintenance_text($score, $risks) {
+function tm_get_maintenance_text($score, $risks)
+{
   if ($score >= 8 && $risks <= 3) {
     return 'Der erste Eindruck ist solide. Trotzdem gibt es Punkte, die bei WordPress-Websites regelmäßig geprüft werden sollten.';
   }
@@ -255,13 +283,15 @@ function tm_get_maintenance_text($score, $risks) {
   return 'Der Mini-Check zeigt deutliche Auffälligkeiten. Hier sollte zeitnah genauer geprüft werden.';
 }
 
-function tm_get_form_intro($score, $risks) {
+function tm_get_form_intro($score, $risks)
+{
   if ($score >= 8 && $risks <= 3) return 'Ich prüfe, ob hinter dem soliden ersten Eindruck trotzdem Wartungsrisiken im Backend liegen.';
   if ($score >= 6) return 'Ich ordne die Hinweise ein und sage dir, welche Punkte wirklich wichtig sind.';
   return 'Ich schaue mir die auffälligen Punkte genauer an und sage dir, was zuerst erledigt werden sollte.';
 }
 
-function tm_get_meaning_text($score, $risks) {
+function tm_get_meaning_text($score, $risks)
+{
   if ($risks <= 2 && $score >= 8) {
     return 'Deine Website wirkt öffentlich grundsätzlich ordentlich. Ob Plugins aktuell sind, Backups funktionieren und das Backend sauber abgesichert ist, sieht man von außen aber nicht zuverlässig.';
   }
@@ -273,7 +303,8 @@ function tm_get_meaning_text($score, $risks) {
   return 'Der öffentliche Check zeigt mehrere Auffälligkeiten. Das ist ein starkes Signal, dass auch im Backend genauer geprüft werden sollte.';
 }
 
-function tm_extract_site_facts($body, $base_url) {
+function tm_extract_site_facts($body, $base_url)
+{
   $detected = tm_detect_plugins_and_theme($body);
   $wordpress_signals = tm_detect_wordpress_signals($body);
 
@@ -379,7 +410,8 @@ function tm_extract_site_facts($body, $base_url) {
   return $facts;
 }
 
-function tm_run_website_check($url, &$site_facts) {
+function tm_run_website_check($url, &$site_facts)
+{
   $results = [];
   $url = tm_normalize_website_url($url);
 
@@ -493,7 +525,7 @@ function tm_run_website_check($url, &$site_facts) {
         'Geprüfte URL' => $final_url,
         'Ergebnis' => 'Keine öffentlich sichtbaren WordPress-Signale',
         'Geprüfte Signale' => 'wp-content, wp-includes, wp-json, Plugin-Pfade, Theme-Pfade, WordPress-Skripte',
-        'Nächster Schritt' => 'Nur bei WordPress-Websites ist eine Wartungsampel sinnvoll.',
+        'Nächster Schritt' => 'Nur bei WordPress-Websites ist dieser Website-Check sinnvoll.',
       ]
     );
 
@@ -1148,7 +1180,7 @@ function tm_run_website_check($url, &$site_facts) {
     );
   }
 
-  usort($results, function($a, $b) {
+  usort($results, function ($a, $b) {
     return $a['priority'] <=> $b['priority'];
   });
 
@@ -1158,12 +1190,38 @@ function tm_run_website_check($url, &$site_facts) {
 $website = tm_normalize_website_url($website);
 $website_display = !empty($website) ? tm_shorten_url_middle($website, 50) : '';
 $website_host = !empty($website) ? tm_get_host_from_url($website) : '';
-$check_page_url = get_permalink();
+$check_page_url = home_url('/website-pruefen/');
 $post_action_url = !empty($website)
   ? add_query_arg('website', $website, $check_page_url)
   : $check_page_url;
 
-if (!empty($website)) {
+if ($is_check_request) {
+
+  $name = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
+  $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+  $site = isset($_POST['website']) ? tm_normalize_website_url(wp_unslash($_POST['website'])) : '';
+
+  if (!empty($name) && !empty($email) && !empty($site)) {
+    $to = 'info@toabai.media';
+    $subject = 'Neue Anfrage aus dem Website-Check';
+
+    $body = "Name: {$name}\n";
+    $body .= "E-Mail: {$email}\n";
+    $body .= "Website: {$site}\n";
+    $body .= "Anfragezeit: {$scan_time}\n";
+    $body .= "Report-Seite: {$post_action_url}\n";
+
+    $headers = [
+      'Content-Type: text/plain; charset=UTF-8',
+      'Reply-To: ' . $name . ' <' . $email . '>',
+    ];
+
+    $mail_sent = wp_mail($to, $subject, $body, $headers);
+    $success = true;
+  }
+}
+
+if (!empty($website) && empty($success)) {
   $check_results = tm_run_website_check($website, $site_facts);
   $is_wordpress_site = !empty($site_facts['is_wordpress']);
 
@@ -1177,7 +1235,7 @@ if (!empty($website)) {
   $maintenance_percent = $is_wordpress_site ? tm_get_maintenance_percent($score_points, $risk_count) : 0;
   $maintenance_level = $is_wordpress_site ? tm_get_maintenance_level($score_points, $risk_count) : 'nicht geeignet';
 
-  $top_risks = array_values(array_filter($check_results, function($item) {
+  $top_risks = array_values(array_filter($check_results, function ($item) {
     return $item['status'] !== 'good';
   }));
 
@@ -1192,573 +1250,528 @@ if (!empty($website)) {
   $diagnosis_signals = tm_get_diagnosis_signals($check_results, $site_facts);
   $special_findings = tm_get_special_findings($site_facts);
 }
-
-if ($is_check_request) {
-
-  $name  = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
-  $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
-  $site  = isset($_POST['website']) ? tm_normalize_website_url(wp_unslash($_POST['website'])) : '';
-
-  $success = false;
-
-  if (!empty($name) && !empty($email) && !empty($site)) {
-
-    $to = 'info@toabai.media';
-
-    $subject = !empty($is_wordpress_site)
-      ? 'Neue Wartungsampel Anfrage'
-      : 'Neue manuelle Website-Prüfung';
-
-    $body  = "Name: {$name}\n";
-    $body .= "E-Mail: {$email}\n";
-    $body .= "Website: {$site}\n";
-
-    $body .= "WordPress erkannt: " . (
-      !empty($is_wordpress_site)
-        ? 'Ja'
-        : 'Nein / nicht eindeutig'
-    ) . "\n";
-
-    if (!empty($is_wordpress_site)) {
-
-      $body .= "Wartungsbedarf: {$maintenance_percent}%\n";
-      $body .= "Risiko-Level: {$maintenance_level}\n";
-      $body .= "Hinweise: {$risk_count}\n";
-
-    } else {
-
-      $body .= "Hinweis: Es wurden keine öffentlich erkennbaren WordPress-Signale gefunden.\n";
-    }
-
-    $body .= "Analysezeit: {$scan_time}\n";
-
-    if (!empty($site_facts['redirect_detected'])) {
-
-      $body .= "Weiterleitung: "
-        . $site_facts['redirect_from']
-        . " → "
-        . $site_facts['redirect_to']
-        . "\n";
-
-      $body .= "Finale URL: "
-        . $site_facts['final_url']
-        . "\n";
-    }
-
-    if (!empty($site_facts['wordpress_signals'])) {
-
-      $body .= "WordPress-Signale: "
-        . implode(', ', $site_facts['wordpress_signals'])
-        . "\n";
-    }
-
-    if (!empty($site_facts['plugins'])) {
-
-      $body .= "Öffentlich erkannte Plugins: "
-        . implode(', ', $site_facts['plugins'])
-        . "\n";
-    }
-
-    if (!empty($site_facts['theme'])) {
-
-      $body .= "Erkanntes Theme: "
-        . $site_facts['theme']
-        . "\n";
-    }
-
-    $headers = [
-      'Content-Type: text/plain; charset=UTF-8',
-      'Reply-To: ' . $name . ' <' . $email . '>',
-    ];
-
-    $mail_sent = wp_mail($to, $subject, $body, $headers);
-
-    $success = true;
-  }
-}
 ?>
 
 <?php get_header(); ?>
 
-
-<div style="padding:30px;background:#16a34a;color:white;font-size:26px;font-weight:bold;">
-  CONTENT NACH HEADER WIRD AUSGEGEBEN
-</div>
-
 <main id="content" class="toabai-page website-check-page website-check-page-single">
 
-<section class="tm-check-single-hero tm-check-signal-hero">
-  <div class="tm-container tm-check-single-wrap">
+  <section class="tm-check-single-hero tm-check-signal-hero">
+    <div class="tm-container tm-check-single-wrap">
 
       <p class="tm-eyebrow">Kostenloser Website Check</p>
 
-      <h1>Wartungssignale früh erkennen.</h1>
+      <h1>Wie gut ist deine WordPress-Website wirklich gepflegt?</h1>
 
       <p class="tm-check-hero-subline">
-        Der erste Eindruck deiner Website zeigt oft schon, ob WordPress, Plugins und technische Komponenten regelmäßig betreut werden.
+        Der Website-Check analysiert öffentlich sichtbare technische Hinweise und zeigt, ob deine WordPress-Website regelmäßig betreut wirkt.
       </p>
 
-    <?php if (!empty($website)) : ?>
+      <?php if (!empty($website)) : ?>
 
-      <div class="tm-checked-site-line">
-        <span>Geprüft:</span>
-        <strong title="<?php echo esc_attr($website); ?>">
-          <?php echo esc_html($website_display); ?>
-        </strong>
-        <em>Analyse durchgeführt am <?php echo esc_html($scan_time); ?></em>
-      </div>
-
-      <?php if (!empty($site_facts['redirect_detected'])) : ?>
-        <div class="tm-redirect-notice">
-          <strong>Weiterleitung erkannt:</strong>
-          <span>
-            <?php echo esc_html($site_facts['redirect_from']); ?>
-            →
-            <?php echo esc_html($site_facts['redirect_to']); ?>
-          </span>
-        </div>
-      <?php endif; ?>
-
-      <div class="tm-action-report">
-
-        <?php if (!$is_wordpress_site) : ?>
-
-       <div class="tm-action-status tm-action-status-<?php echo esc_attr(tm_get_maintenance_status($score_points, $risk_count)); ?>">
-
-
-        <div>
-          <span>Status</span>
-          <strong>Wartungsanalyse</strong>
-            <p>Deine Website im technischen Schnellcheck · Risiko-Level: <?php echo esc_html($maintenance_level); ?></p>
-
-              <div class="tm-action-score">
-                
-              
-                      <div class="tm-action-score-top">
-                          <strong><?php echo esc_html($maintenance_percent); ?>%</strong>
-                            <div>
-                              <span class="tm-score-kicker">Wartungssignale</span>
-                              <h2><?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?></h2>
-                              <p><?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?></p>
-                            </div>
-                      </div>
-
-                      <div class="tm-action-score-bar">
-                        <i style="width: <?php echo esc_attr($maintenance_percent); ?>%;"></i>
-                      </div>
-              </div>
-         </div>
-
-          <div class="tm-action-light">
-            <i></i>
-            <i></i>
-            <i></i>
-          </div>
+        <div class="tm-check-report-meta">
+          <span>Deine Website: <strong><?php echo esc_html($website_host); ?></strong></span>
+          <span>Geprüft am: <?php echo esc_html($scan_time); ?> Uhr</span>
         </div>
 
-
-
-
-          <div class="tm-action-diagnosis">
-            <p class="tm-evidence-label">Direkte Diagnose</p>
-            <h2>Diese Website zeigt keine öffentlich erkennbaren WordPress-Signale.</h2>
-            <p>
-              Die Wartungsampel von toabai.media ist speziell für WordPress-Websites gedacht.
-              Bei dieser Website wurden keine typischen WordPress-Hinweise wie wp-content, wp-includes,
-              wp-json, Plugin-Pfade oder Theme-Pfade gefunden.
-            </p>
+        <?php if (!empty($site_facts['redirect_detected'])) : ?>
+          <div class="tm-redirect-notice">
+            <strong>Weiterleitung erkannt:</strong>
+            <span>
+              <?php echo esc_html($site_facts['redirect_from']); ?>
+              →
+              <?php echo esc_html($site_facts['redirect_to']); ?>
+            </span>
           </div>
+        <?php endif; ?>
 
-          <div class="tm-action-hints">
-            <div class="tm-action-hints-head">
-              <strong>Was das bedeutet</strong>
-              <span>öffentlich sichtbare Signale</span>
-            </div>
+        <?php if (!empty($success)) : ?>
 
-            <div class="tm-action-hint-grid">
-              <article class="tm-action-hint tm-action-hint-bad">
-                <small>Technik</small>
-                <h3>Keine WordPress-Struktur erkannt</h3>
-                <em>nicht geeignet</em>
-                <p>Für diese Website kommt eine klassische WordPress Wartung vermutlich nicht in Frage.</p>
-                <p class="tm-result-meaning">
-                  Falls die Website doch mit WordPress betrieben wird, kann die Technik nach außen verborgen sein.
-                </p>
-              </article>
+          <section class="tm-single-form-section">
+            <div class="tm-check-hero-form-card tm-single-form-card tm-action-form-card">
 
-              <article class="tm-action-hint tm-action-hint-warning">
-                <small>Prüfung</small>
-                <h3>Nur öffentliche Signale geprüft</h3>
-                <em>Mini-Check</em>
-                <p>Der Check kann nur erkennen, was von außen sichtbar ist.</p>
-                <p class="tm-result-meaning">
-                  Backend, Plugin-Versionen, Backups und Updates sind ohne Zugang nicht prüfbar.
-                </p>
-              </article>
+              <div class="tm-success-box tm-success-box-modern">
 
-              <article class="tm-action-hint tm-action-hint-good">
-                <small>Nächster Schritt</small>
-                <h3>Manuell einordnen lassen</h3>
-                <em>optional</em>
-                <p>Wenn du sicher bist, dass die Website mit WordPress läuft, kann ich sie manuell prüfen.</p>
-                <p class="tm-result-meaning">
-                  Dann lässt sich klären, ob WordPress nur versteckt oder stark angepasst ist.
-                </p>
-              </article>
-            </div>
-          </div>
-
-          <details class="tm-single-details tm-action-details">
-            <summary>Warum ich das so einschätze</summary>
-
-            <div class="tm-single-details-content">
-              <div class="tm-site-evidence-box tm-site-evidence-box-v2">
-                <p class="tm-evidence-label">Beweise aus deiner Website</p>
-
-                <div class="tm-proof-grid">
-                  <div>
-                    <strong>Eingegebene Domain</strong>
-                    <span><?php echo esc_html($website_host); ?></span>
-                  </div>
-
-                  <div>
-                    <strong>Final geprüft</strong>
-                    <span><?php echo !empty($site_facts['final_host']) ? esc_html($site_facts['final_host']) : esc_html($website_host); ?></span>
-                  </div>
-
-                  <div>
-                    <strong>WordPress-Signale</strong>
-                    <span>0 erkannt</span>
-                  </div>
-
-                  <div>
-                    <strong>Ergebnis</strong>
-                    <span>nicht eindeutig WordPress</span>
-                  </div>
+                <div class="tm-success-icon">
+                  ✓
                 </div>
 
-                <?php if (!empty($site_facts['title'])) : ?>
-                  <div>
-                    <strong>Seitentitel gefunden</strong>
-                    <span><?php echo esc_html(tm_shorten_url_middle($site_facts['title'], 95)); ?></span>
+                <span class="tm-success-kicker">
+                  Anfrage erfolgreich gesendet
+                </span>
+
+                <h2>
+                  Danke für deine Anfrage!
+                </h2>
+
+                <p>
+                  Ich habe deine Website-Anfrage erhalten und schaue mir
+                  die Wartungssignale persönlich an.
+                </p>
+
+                <?php if (!empty($website_host)) : ?>
+                  <div class="tm-success-site">
+                    Geprüfte Website:
+                    <strong><?php echo esc_html($website_host); ?></strong>
                   </div>
                 <?php endif; ?>
 
-                <?php if (!empty($site_facts['h1'])) : ?>
-                  <div>
-                    <strong>Hauptüberschrift gefunden</strong>
-                    <span><?php echo esc_html(tm_shorten_url_middle($site_facts['h1'], 95)); ?></span>
-                  </div>
-                <?php endif; ?>
-
-                <div class="tm-plugin-box">
-                  <strong>Geprüfte WordPress-Signale</strong>
-
-                  <div class="tm-plugin-list">
-                    <span class="tm-plugin-badge">wp-content</span>
-                    <span class="tm-plugin-badge">wp-includes</span>
-                    <span class="tm-plugin-badge">wp-json</span>
-                    <span class="tm-plugin-badge">Plugin-Pfade</span>
-                    <span class="tm-plugin-badge">Theme-Pfade</span>
-                    <span class="tm-plugin-badge">WordPress-Skripte</span>
-                  </div>
-
-                  <small>
-                    Keines dieser Signale wurde öffentlich eindeutig erkannt. Deshalb wird kein normaler WordPress-Wartungsreport ausgegeben.
-                  </small>
+                <div class="tm-success-note">
+                  Du erhältst zeitnah eine persönliche Einschätzung per E-Mail.
                 </div>
 
               </div>
+
             </div>
-          </details>
+          </section>
 
         <?php else : ?>
 
-            <!-- NEUER COMPACT HEADER -->
-<!-- START -->
-      <div class="tm-check-report-meta">
-  <span>Deine Website: <strong><?php echo esc_html($website_host); ?></strong></span>
-  <span>Geprüft am: <?php echo esc_html($scan_time); ?> Uhr</span>
-</div>
+          <div class="tm-action-report">
 
-<div class="tm-check-score-strip tm-check-score-strip-<?php echo esc_attr(tm_get_maintenance_status($score_points, $risk_count)); ?>">
+            <?php if (!$is_wordpress_site) : ?>
 
-  <div class="tm-check-score-left">
-    <span class="tm-check-score-dot"></span>
+              <div class="tm-action-status tm-action-status-<?php echo esc_attr(tm_get_maintenance_status($score_points, $risk_count)); ?>">
 
-    <strong><?php echo esc_html($maintenance_percent); ?>%</strong>
 
-          <div>
-            <span class="tm-score-kicker">Wartungssignale</span>
-            <h2><?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?></h2>
-            <p><?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?></p>
+                <div>
+                  <span>Status</span>
+                  <strong>Website-Check</strong>
+                  <p>Technischer Schnellcheck deiner WordPress-Website · Risiko-Level: <?php echo esc_html($maintenance_level); ?></p>
+
+                  <div class="tm-action-score">
+
+
+                    <div class="tm-action-score-top">
+                      <div class="tm-score-value">
+                        <span>Pflegezustand</span>
+                        <strong><?php echo esc_html($maintenance_percent); ?>%</strong>
+                      </div>
+                      <div>
+                        <span class="tm-score-kicker">Website-Zustand</span>
+                        <h2><?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?></h2>
+                        <p><?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?></p>
+                      </div>
+                    </div>
+
+                    <div class="tm-action-score-bar">
+                      <i style="width: <?php echo esc_attr($maintenance_percent); ?>%;"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tm-action-light">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+              </div>
+
+
+
+
+              <div class="tm-action-diagnosis">
+                <p class="tm-evidence-label">Direkte Diagnose</p>
+                <h2>Diese Website zeigt keine öffentlich erkennbaren WordPress-Signale.</h2>
+                <p>
+                  Der Website-Check von toabai.media ist speziell für WordPress-Websites gedacht.
+                  Bei dieser Website wurden keine typischen WordPress-Hinweise wie wp-content, wp-includes,
+                  wp-json, Plugin-Pfade oder Theme-Pfade gefunden.
+                </p>
+              </div>
+
+              <div class="tm-action-hints">
+                <div class="tm-action-hints-head">
+                  <strong>Was das bedeutet</strong>
+                  <span>öffentlich sichtbare Signale</span>
+                </div>
+
+                <div class="tm-action-hint-grid">
+                  <article class="tm-action-hint tm-action-hint-bad">
+                    <small>Technik</small>
+                    <h3>Keine WordPress-Struktur erkannt</h3>
+                    <em>nicht geeignet</em>
+                    <p>Für diese Website kommt eine klassische WordPress Wartung vermutlich nicht in Frage.</p>
+                    <p class="tm-result-meaning">
+                      Falls die Website doch mit WordPress betrieben wird, kann die Technik nach außen verborgen sein.
+                    </p>
+                  </article>
+
+                  <article class="tm-action-hint tm-action-hint-warning">
+                    <small>Prüfung</small>
+                    <h3>Nur öffentliche Signale geprüft</h3>
+                    <em>Mini-Check</em>
+                    <p>Der Check kann nur erkennen, was von außen sichtbar ist.</p>
+                    <p class="tm-result-meaning">
+                      Backend, Plugin-Versionen, Backups und Updates sind ohne Zugang nicht prüfbar.
+                    </p>
+                  </article>
+
+                  <article class="tm-action-hint tm-action-hint-good">
+                    <small>Nächster Schritt</small>
+                    <h3>Manuell einordnen lassen</h3>
+                    <em>optional</em>
+                    <p>Wenn du sicher bist, dass die Website mit WordPress läuft, kann ich sie manuell prüfen.</p>
+                    <p class="tm-result-meaning">
+                      Dann lässt sich klären, ob WordPress nur versteckt oder stark angepasst ist.
+                    </p>
+                  </article>
+                </div>
+              </div>
+
+              <details class="tm-single-details tm-action-details">
+                <summary>Warum ich das so einschätze</summary>
+
+                <div class="tm-single-details-content">
+                  <div class="tm-site-evidence-box tm-site-evidence-box-v2">
+                    <p class="tm-evidence-label">Beweise aus deiner Website</p>
+
+                    <div class="tm-proof-grid">
+                      <div>
+                        <strong>Eingegebene Domain</strong>
+                        <span><?php echo esc_html($website_host); ?></span>
+                      </div>
+
+                      <div>
+                        <strong>Final geprüft</strong>
+                        <span><?php echo !empty($site_facts['final_host']) ? esc_html($site_facts['final_host']) : esc_html($website_host); ?></span>
+                      </div>
+
+                      <div>
+                        <strong>WordPress-Signale</strong>
+                        <span>0 erkannt</span>
+                      </div>
+
+                      <div>
+                        <strong>Ergebnis</strong>
+                        <span>nicht eindeutig WordPress</span>
+                      </div>
+                    </div>
+
+                    <?php if (!empty($site_facts['title'])) : ?>
+                      <div>
+                        <strong>Seitentitel gefunden</strong>
+                        <span><?php echo esc_html(tm_shorten_url_middle($site_facts['title'], 95)); ?></span>
+                      </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($site_facts['h1'])) : ?>
+                      <div>
+                        <strong>Hauptüberschrift gefunden</strong>
+                        <span><?php echo esc_html(tm_shorten_url_middle($site_facts['h1'], 95)); ?></span>
+                      </div>
+                    <?php endif; ?>
+
+                    <div class="tm-plugin-box">
+                      <strong>Geprüfte WordPress-Signale</strong>
+
+                      <div class="tm-plugin-list">
+                        <span class="tm-plugin-badge">wp-content</span>
+                        <span class="tm-plugin-badge">wp-includes</span>
+                        <span class="tm-plugin-badge">wp-json</span>
+                        <span class="tm-plugin-badge">Plugin-Pfade</span>
+                        <span class="tm-plugin-badge">Theme-Pfade</span>
+                        <span class="tm-plugin-badge">WordPress-Skripte</span>
+                      </div>
+
+                      <small>
+                        Keines dieser Signale wurde öffentlich eindeutig erkannt. Deshalb wird kein normaler WordPress-Wartungsreport ausgegeben.
+                      </small>
+                    </div>
+
+                  </div>
+                </div>
+              </details>
+
+            <?php else : ?>
+
+              <!-- NEUER COMPACT HEADER -->
+              <!-- START -->
+              <div class="tm-check-report-meta">
+                <span>Deine Website: <strong><?php echo esc_html($website_host); ?></strong></span>
+                <span>Geprüft am: <?php echo esc_html($scan_time); ?> Uhr</span>
+              </div>
+
+              <div class="tm-check-score-strip tm-check-score-strip-<?php echo esc_attr(tm_get_maintenance_status($score_points, $risk_count)); ?>">
+
+                <div class="tm-check-score-left">
+                  <span class="tm-check-score-dot"></span>
+
+                  <div class="tm-score-value">
+                    <span>Pflegezustand</span>
+                    <strong><?php echo esc_html($maintenance_percent); ?>%</strong>
+                  </div>
+
+                  <div>
+                    <span class="tm-score-kicker">Technischer Betreuungsbedarf</span>
+                    <h2><?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?></h2>
+                    <p><?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?></p>
+                  </div>
+                </div>
+
+                <div class="tm-check-score-right">
+                  <div class="tm-check-score-line">
+                    <i style="left: <?php echo esc_attr($maintenance_percent); ?>%;"></i>
+                  </div>
+
+                  <div class="tm-check-score-labels">
+                    <span>akut prüfen</span>
+                    <span>laufend betreuen</span>
+                    <span>stabil halten</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- STOPP -->
+
+
+              <!--
+              <div class="tm-report-areas-head">
+                <span>Was der Check zeigt</span>
+                <strong>Diese Punkte sprechen für laufende Wartung</strong>
+              </div>
+
+              <div class="tm-report-area-grid tm-report-area-grid-v2">
+
+                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['maintainability']['status']); ?>">
+                  <span>WordPress & Wartung</span>
+                  <strong>
+                    <?php
+                    if (($site_facts['plugin_count'] ?? 0) >= 10) {
+                      echo 'Mehrere WordPress-Komponenten brauchen laufende Betreuung';
+                    } elseif (($site_facts['plugin_count'] ?? 0) > 0) {
+                      echo 'Mehrere Komponenten brauchen Betreuung';
+                    } else {
+                      echo 'Die WordPress-Struktur wirkt zurückhaltend sichtbar';
+                    }
+                    ?>
+                  </strong>
+                </div>
+
+                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['security']['status']); ?>">
+                  <span>Sicherheit</span>
+                  <strong>
+                    <?php
+                    if ($report_areas['security']['status'] === 'good') {
+                      echo 'Keine kritischen Sicherheitssignale erkannt';
+                    } else {
+                      echo 'Einige sicherheitsrelevante Punkte sollten geprüft werden';
+                    }
+                    ?>
+                  </strong>
+                </div>
+
+                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['performance']['status']); ?>">
+                  <span>Stabilität & Technik</span>
+                  <strong>
+                    <?php
+                    if ($report_areas['performance']['status'] === 'good') {
+                      echo 'Die Website wirkt technisch grundsätzlich stabil';
+                    } else {
+                      echo 'Antwortzeit und technische Struktur sollten beobachtet werden';
+                    }
+                    ?>
+                  </strong>
+                </div>
+
+                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['privacy']['status']); ?>">
+                  <span>Externe Dienste</span>
+                  <strong>
+                    <?php
+                    if (!empty($site_facts['external_services'])) {
+                      echo 'Externe Dienste und Einbindungen wurden erkannt';
+                    } else {
+                      echo 'Keine auffälligen externen Dienste erkannt';
+                    }
+                    ?>
+                  </strong>
+                </div>
+
+              </div>
+            -->
+
+
           </div>
-  </div>
 
-  <div class="tm-check-score-right">
-    <div class="tm-check-score-line">
-      <i style="left: <?php echo esc_attr($maintenance_percent); ?>%;"></i>
-    </div>
+          <?php if (!empty($diagnosis_signals['technology'])) : ?>
 
-          <div class="tm-check-score-labels">
-                <span>akut prüfen</span>
-                <span>laufend betreuen</span>
-                <span>stabil halten</span>
+            <div class="tm-report-tech-overview">
+              <div class="tm-report-tech-head">
+                <span>Erkannte Technik</span>
+                <strong>Öffentlich sichtbare Komponenten</strong>
+              </div>
+
+              <div class="tm-report-tech-grid">
+
+                <?php foreach ($diagnosis_signals['technology'] as $item) : ?>
+
+                  <div class="tm-report-tech-item">
+                    <span><?php echo esc_html($item['label']); ?></span>
+                    <strong><?php echo esc_html($item['value']); ?></strong>
+                  </div>
+
+                <?php endforeach; ?>
+
+              </div>
+            </div>
+
+          <?php endif; ?>
+
+          <?php if (!empty($special_findings)) : ?>
+
+            <section class="tm-special-findings">
+
+              <div class="tm-special-findings-head">
+                <p class="tm-evidence-label">Sonderprüfung</p>
+                <h2>Besondere Wartungssignale erkannt</h2>
+                <p>
+                  Einige öffentlich sichtbare Hinweise deuten auf zusätzliche technische Anforderungen hin.
+                </p>
+              </div>
+
+              <div class="tm-special-findings-grid">
+
+                <?php foreach ($special_findings as $index => $finding) : ?>
+
+                  <article class="tm-special-card tm-special-card-<?php echo esc_attr($finding['type']); ?> <?php echo $index === 0 ? 'tm-special-card-featured' : ''; ?>">
+
+                    <div class="tm-special-card-header">
+
+                      <div class="tm-special-icon tm-special-icon-<?php echo esc_attr($finding['accent']); ?>">
+                        <!-- HIER -->
+                        <?php echo tm_get_special_icon_svg($finding['icon'] ?? 'plugin'); ?>
+                        <!-- HIER --->
+
+                      </div>
+
+                      <div class="tm-special-meta">
+
+                        <span class="tm-special-status">
+                          <?php
+                          echo $finding['type'] === 'good'
+                            ? 'POSITIV'
+                            : 'HINWEIS';
+                          ?>
+                        </span>
+
+                        <h3>
+                          <?php echo esc_html($finding['label']); ?>
+                        </h3>
+
+                      </div>
+
+                    </div>
+
+                    <p class="tm-special-description">
+                      <?php echo esc_html($finding['text']); ?>
+                    </p>
+
+                    <div class="tm-special-meaning-box">
+
+                      <span>BEDEUTUNG</span>
+
+                      <p>
+                        <?php echo esc_html($finding['meaning']); ?>
+                      </p>
+
+                    </div>
+
+                  </article>
+
+                <?php endforeach; ?>
+
+              </div>
+
+            </section>
+
+          <?php endif; ?>
+
+
+          <!-- Ersetzen  start -->
+
+          <div class="tm-diagnosis-grid">
+
+            <div class="tm-diagnosis-main">
+              <span class="tm-diagnosis-label">Direkte Diagnose</span>
+
+              <h2>
+                <?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?>
+              </h2>
+
+              <p>
+                <?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?>
+              </p>
+
+              <div class="tm-diagnosis-kpis tm-diagnosis-kpis-v2">
+
+                <div class="tm-diagnosis-kpi">
+                  <strong><?php echo esc_html($risk_count); ?></strong>
+                  <span>Wartungshinweise</span>
+                </div>
+
+                <div class="tm-diagnosis-kpi">
+                  <strong><?php echo esc_html(count($check_results)); ?></strong>
+                  <span>technische Prüfpunkte</span>
+                </div>
+
+                <div class="tm-diagnosis-kpi tm-diagnosis-kpi-wide">
+                  <strong>
+                    <?php
+                    $plugin_string_for_kpi = strtolower(implode(' ', $site_facts['plugins'] ?? []));
+
+                    if (strpos($plugin_string_for_kpi, 'woocommerce') !== false) {
+                      echo 'Shop-System braucht laufende Kontrolle';
+                    } elseif (strpos($plugin_string_for_kpi, 'elementor') !== false) {
+                      echo 'Page Builder braucht regelmäßige Prüfung';
+                    } elseif (($site_facts['plugin_count'] ?? 0) >= 10) {
+                      echo 'Mehrere Systeme brauchen laufende Kontrolle';
+                    } elseif (!empty($site_facts['external_services'])) {
+                      echo 'Externe Dienste sollten im Blick bleiben';
+                    } else {
+                      echo 'Technische Betreuung spart Zeit und Ausfälle';
+                    }
+                    ?>
+                  </strong>
+                  <span>technische Einordnung</span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="tm-diagnosis-action">
+              <span class="tm-diagnosis-label">Das solltest du jetzt machen</span>
+
+              <ul class="tm-diagnosis-checks">
+                <li>Website regelmäßig technisch prüfen lassen</li>
+                <li>Updates, Backups und Sicherheit laufend betreuen</li>
+                <li>Formulare, Ladezeit und sichtbare Fehler im Blick behalten</li>
+              </ul>
+            </div>
+
           </div>
-  </div>
 
-</div>
+          <div class="tm-risk-reality-box">
 
-<!-- STOPP -->
+            <span>Was oft passiert</span>
 
+            <h3>
+              Viele Probleme fallen erst auf, wenn bereits Anfragen verloren gehen.
+            </h3>
 
+            <p>
+              Kontaktformulare funktionieren plötzlich nicht mehr,
+              Updates verursachen Fehler oder Sicherheitsprobleme bleiben lange unbemerkt.
+            </p>
 
-<div class="tm-report-areas-head">
-  <span>Was der Check zeigt</span>
-  <strong>Diese Punkte sprechen für laufende Wartung</strong>
-</div>
+            <p>
+              Genau deshalb werden WordPress-Websites regelmäßig technisch betreut.
+            </p>
 
-<div class="tm-report-area-grid tm-report-area-grid-v2">
+          </div>
 
-  <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['maintainability']['status']); ?>">
-    <span>WordPress & Wartung</span>
-    <strong>
-      <?php
-      if (($site_facts['plugin_count'] ?? 0) >= 10) {
-        echo 'Mehrere WordPress-Komponenten brauchen laufende Betreuung';
-      } elseif (($site_facts['plugin_count'] ?? 0) > 0) {
-        echo 'Mehrere Komponenten brauchen Betreuung';
-      } else {
-        echo 'Die WordPress-Struktur wirkt zurückhaltend sichtbar';
-      }
-      ?>
-    </strong>
-  </div>
+          <!-- Ersetzen Ende -->
 
-  <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['security']['status']); ?>">
-    <span>Sicherheit</span>
-    <strong>
-      <?php
-      if ($report_areas['security']['status'] === 'good') {
-        echo 'Keine kritischen Sicherheitssignale erkannt';
-      } else {
-        echo 'Einige sicherheitsrelevante Punkte sollten geprüft werden';
-      }
-      ?>
-    </strong>
-  </div>
-
-  <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['performance']['status']); ?>">
-    <span>Stabilität & Technik</span>
-    <strong>
-      <?php
-      if ($report_areas['performance']['status'] === 'good') {
-        echo 'Die Website wirkt technisch grundsätzlich stabil';
-      } else {
-        echo 'Antwortzeit und technische Struktur sollten beobachtet werden';
-      }
-      ?>
-    </strong>
-  </div>
-
-  <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['privacy']['status']); ?>">
-    <span>Externe Dienste</span>
-    <strong>
-      <?php
-      if (!empty($site_facts['external_services'])) {
-        echo 'Externe Dienste und Einbindungen wurden erkannt';
-      } else {
-        echo 'Keine auffälligen externen Dienste erkannt';
-      }
-      ?>
-    </strong>
-  </div>
-
-</div>
-
-
-
-</div>
-
-<?php if (!empty($diagnosis_signals['technology'])) : ?>
-
-  <div class="tm-report-tech-overview">
-    <div class="tm-report-tech-head">
-      <span>Erkannte Technik</span>
-      <strong>Öffentlich sichtbare Komponenten</strong>
-    </div>
-
-    <div class="tm-report-tech-grid">
-
-      <?php foreach ($diagnosis_signals['technology'] as $item) : ?>
-
-        <div class="tm-report-tech-item">
-          <span><?php echo esc_html($item['label']); ?></span>
-          <strong><?php echo esc_html($item['value']); ?></strong>
-        </div>
-
-      <?php endforeach; ?>
-
-    </div>
-  </div>
-
-<?php endif; ?>
-
-<?php if (!empty($special_findings)) : ?>
-
-  <section class="tm-special-findings">
-    
-    <div class="tm-special-findings-head">
-      <p class="tm-evidence-label">Sonderprüfung</p>
-      <h2>Besondere Wartungssignale erkannt</h2>
-      <p>
-        Einige öffentlich sichtbare Hinweise deuten auf zusätzliche technische Anforderungen hin.
-      </p>
-    </div>
-
-    <div class="tm-special-findings-grid">
-
-      <?php foreach ($special_findings as $index => $finding) : ?>
-
-  <article class="tm-special-card tm-special-card-<?php echo esc_attr($finding['type']); ?> <?php echo $index === 0 ? 'tm-special-card-featured' : ''; ?>">
-
-  <div class="tm-special-card-header">
-
-    <div class="tm-special-icon tm-special-icon-<?php echo esc_attr($finding['accent']); ?>">
-<!-- HIER -->
-<?php echo tm_get_special_icon_svg($finding['icon'] ?? 'plugin'); ?>
-     <!-- HIER --->
-
-    </div>
-
-    <div class="tm-special-meta">
-
-      <span class="tm-special-status">
-        <?php
-        echo $finding['type'] === 'good'
-          ? 'POSITIV'
-          : 'HINWEIS';
-        ?>
-      </span>
-
-      <h3>
-        <?php echo esc_html($finding['label']); ?>
-      </h3>
-
-    </div>
-
-  </div>
-
-  <p class="tm-special-description">
-    <?php echo esc_html($finding['text']); ?>
-  </p>
-
-  <div class="tm-special-meaning-box">
-
-    <span>BEDEUTUNG</span>
-
-    <p>
-      <?php echo esc_html($finding['meaning']); ?>
-    </p>
-
-  </div>
-
-</article>
-
-      <?php endforeach; ?>
-
-    </div>
-
-  </section>
-
-<?php endif; ?>
-
-
-
-
-<div class="tm-diagnosis-grid">
-
-  <div class="tm-diagnosis-main">
-    <span class="tm-diagnosis-label">
-      Direkte Diagnose
-    </span>
-
-    <h2>
-      <?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?>
-    </h2>
-
-    <p>
-      <?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?>
-    </p>
-
- <div class="tm-diagnosis-kpis tm-diagnosis-kpis-v2">
-
-  <div class="tm-diagnosis-kpi">
-    <strong><?php echo esc_html($risk_count); ?></strong>
-    <span>Wartungshinweise</span>
-  </div>
-
-  <div class="tm-diagnosis-kpi">
-    <strong><?php echo esc_html(count($check_results)); ?></strong>
-    <span>technische Prüfpunkte</span>
-  </div>
-
-  <div class="tm-diagnosis-kpi tm-diagnosis-kpi-wide">
-    <strong>
-      <?php
-      $plugin_string_for_kpi = strtolower(implode(' ', $site_facts['plugins'] ?? []));
-
-      if (strpos($plugin_string_for_kpi, 'woocommerce') !== false) {
-        echo 'Shop-System braucht laufende Kontrolle';
-      } elseif (strpos($plugin_string_for_kpi, 'elementor') !== false) {
-        echo 'Page Builder braucht regelmäßige Prüfung';
-      } elseif (($site_facts['plugin_count'] ?? 0) >= 10) {
-        echo 'Mehrere Systeme brauchen laufende Kontrolle';
-      } elseif (!empty($site_facts['external_services'])) {
-        echo 'Externe Dienste sollten im Blick bleiben';
-      } else {
-        echo 'Technische Betreuung spart Zeit und Ausfälle';
-      }
-      ?>
-    </strong>
-    <span>technische Einordnung</span>
-  </div>
-
-</div>
-  </div>
-
-  <div class="tm-diagnosis-action">
-
-    <span class="tm-diagnosis-label">
-      Das solltest du jetzt machen
-    </span>
-
-   <ul class="tm-diagnosis-checks">
-  <li>Website regelmäßig technisch prüfen lassen</li>
-  <li>Updates, Backups und Sicherheit laufend betreuen</li>
-  <li>Formulare, Ladezeit und sichtbare Fehler im Blick behalten</li>
-</ul>
-
-<div class="tm-diagnosis-mini-cta">
-
-  <strong>Die eigentliche Gefahr sieht man oft nicht sofort.</strong>
-
-  <p>
-    Viele WordPress-Websites wirken von außen völlig normal,
-    obwohl im Hintergrund bereits Updates offen sind,
-    Backups nicht geprüft werden oder technische Risiken entstehen.
-  </p>
-
-  <p>
-    Genau deshalb ist laufende Wartung meist günstiger und stressfreier
-    als später auf Fehler, Ausfälle oder Sicherheitsprobleme reagieren zu müssen.
-  </p>
-
-</div>
-
-  </div>
-
-</div>
 
           <?php if (!empty($visible_results)) : ?>
             <div class="tm-action-hints">
@@ -1904,13 +1917,13 @@ if ($is_check_request) {
                     <strong>Gefundene Pfade auf der geprüften Website</strong>
                     <div class="tm-path-list">
 
-                        <?php foreach ($site_facts['internal_links'] as $path) : ?>
+                      <?php foreach ($site_facts['internal_links'] as $path) : ?>
 
-                          <span class="tm-path-badge">
-                            <?php echo esc_html($path); ?>
-                          </span>
+                        <span class="tm-path-badge">
+                          <?php echo esc_html($path); ?>
+                        </span>
 
-                        <?php endforeach; ?>
+                      <?php endforeach; ?>
 
                     </div>
                   </div>
@@ -1922,203 +1935,385 @@ if ($is_check_request) {
 
         <?php endif; ?>
 
-      </div>
+    </div>
 
-      <section class="tm-single-form-section">
-        <div class="tm-check-hero-form-card tm-single-form-card tm-action-form-card">
+    <section class="tm-single-form-section">
+      <div class="tm-check-hero-form-card tm-single-form-card tm-action-form-card">
 
-          <?php if (!empty($success)) : ?>
+        <?php if (!empty($success)) : ?>
 
-            <div class="tm-success-box">
-              <h2>Danke!</h2>
-              <p>Ich habe deine Anfrage erhalten und melde mich zeitnah bei dir.</p>
+          <div class="tm-success-box">
+            <h2>Danke!</h2>
+            <p>Ich habe deine Anfrage erhalten und melde mich zeitnah bei dir.</p>
+          </div>
+
+        <?php else: ?>
+
+          <?php if ($is_wordpress_site) : ?>
+
+            <p class="tm-form-label">Persönliche Einschätzung</p>
+
+            <h2>
+              Du willst dich nicht selbst darum kümmern?
+            </h2>
+
+            <p class="tm-form-intro">
+              Ich schaue mir deine Website persönlich an und sage dir ehrlich,
+              welche Wartungspunkte wirklich relevant sind und welche nicht.
+            </p>
+
+            <div class="tm-form-benefits">
+
+              <div class="tm-form-benefit">
+                <span>✓</span>
+                <p>Persönliche Einschätzung statt automatischer Verkauf</p>
+              </div>
+
+              <div class="tm-form-benefit">
+                <span>✓</span>
+                <p>Speziell für WordPress-Websites</p>
+              </div>
+
+              <div class="tm-form-benefit">
+                <span>✓</span>
+                <p>Klare Priorisierung der wichtigsten Punkte</p>
+              </div>
+
+              <div class="tm-form-benefit">
+                <span>✓</span>
+                <p>Verständlich erklärt, ohne Technik-Kauderwelsch</p>
+              </div>
+
             </div>
 
-          <?php else: ?>
+            <form method="post" action="<?php echo esc_url($post_action_url); ?>" class="tm-form tm-check-form">
 
-            <?php if ($is_wordpress_site) : ?>
+              <input type="hidden" name="tm_check_request" value="1">
 
-              <p class="tm-form-label">Persönliche Einordnung</p>
-              <h2>Du willst dich nicht selbst darum kümmern?</h2>
+              <input
+                type="text"
+                name="name"
+                placeholder="Dein Name"
+                required>
 
-              <p>
-                Ich ordne die Wartungshinweise persönlich ein und sage dir ehrlich,
-                welche Punkte regelmäßig betreut werden sollten.
+              <input
+                type="email"
+                name="email"
+                placeholder="E-Mail"
+                required>
+
+              <input
+                type="text"
+                name="website"
+                placeholder="deine-website.de"
+                inputmode="url"
+                autocomplete="url"
+                value="<?php echo esc_attr($website); ?>"
+                required>
+
+              <p class="tm-form-micro">
+                Ich schaue mir deine Website persönlich an und melde mich mit einer ehrlichen Einschätzung.
               </p>
 
-              <form method="post" action="<?php echo esc_url(add_query_arg('website', rawurlencode($website), get_permalink())); ?>" class="tm-form tm-check-form">
-                <input type="hidden" name="tm_check_request" value="1">
-                <input type="text" name="name" placeholder="Dein Name" required>
-                <input type="email" name="email" placeholder="E-Mail" required>
+              <button type="submit" class="tm-btn tm-btn-blue">
+                Persönliche Einschätzung anfragen
+              </button>
 
-                <input
-                  type="text"
-                  name="website"
-                  placeholder="deine-website.de"
-                  inputmode="url"
-                  autocomplete="url"
-                  value="<?php echo esc_attr($website); ?>"
-                  required
-                >
-
-                <p class="tm-form-micro">Ich schaue mir deine Website persönlich an und melde mich mit einer ehrlichen Einschätzung.</p>
-
-                <button type="submit" class="tm-btn tm-btn-blue">
-                  Website persönlich einschätzen lassen
-                </button>
-
-                <p class="tm-form-trust">
-                   Persönliche Einschätzung durch toabai.media. Kein automatischer Verkaufsdruck.
-                </p>
-              </form>
-
-            <?php else : ?>
-
-              <p class="tm-form-label">Optionaler nächster Schritt</p>
-              <h2>Doch WordPress? Dann manuell prüfen lassen.</h2>
-
-              <p>
-                Wenn du weißt, dass diese Website mit WordPress läuft, kann ich sie manuell einordnen.
-                Öffentlich war WordPress in diesem Mini-Check nicht eindeutig erkennbar.
+              <p class="tm-form-trust">
+                Persönliche Einschätzung durch toabai.media. Kein automatischer Verkaufsdruck.
               </p>
 
-             <form method="post" action="<?php echo esc_url(add_query_arg('website', rawurlencode($website), get_permalink())); ?>" class="tm-form tm-check-form">
-                <input type="hidden" name="tm_check_request" value="1">
-                <input type="text" name="name" placeholder="Dein Name" required>
-                <input type="email" name="email" placeholder="E-Mail" required>
+            </form>
 
-                <input
-                  type="text"
-                  name="website"
-                  placeholder="deine-website.de"
-                  inputmode="url"
-                  autocomplete="url"
-                  value="<?php echo esc_attr($website); ?>"
-                  required
-                >
+          <?php else : ?>
 
-                <p class="tm-form-micro">Nur sinnvoll, wenn die Website tatsächlich mit WordPress betrieben wird.</p>
+            <p class="tm-form-label">Optionaler nächster Schritt</p>
+            <h2>Doch WordPress? Dann manuell prüfen lassen.</h2>
 
-                <button type="submit" class="tm-btn tm-btn-blue">
-                  Manuelle Einschätzung anfragen
-                </button>
+            <p>
+              Wenn du weißt, dass diese Website mit WordPress läuft, kann ich sie manuell einordnen.
+              Öffentlich war WordPress in diesem Mini-Check nicht eindeutig erkennbar.
+            </p>
 
-                <p class="tm-form-trust">Kein Spam. Keine Weitergabe deiner Daten.</p>
-              </form>
+            <form method="post" action="<?php echo esc_url($post_action_url); ?>" class="tm-form tm-check-form">
+              <input type="hidden" name="tm_check_request" value="1">
+              <input type="text" name="name" placeholder="Dein Name" required>
+              <input type="email" name="email" placeholder="E-Mail" required>
 
-            <?php endif; ?>
+              <input
+                type="text"
+                name="website"
+                placeholder="deine-website.de"
+                inputmode="url"
+                autocomplete="url"
+                value="<?php echo esc_attr($website); ?>"
+                required>
+
+              <p class="tm-form-micro">Nur sinnvoll, wenn die Website tatsächlich mit WordPress betrieben wird.</p>
+
+              <button type="submit" class="tm-btn tm-btn-blue">
+                Manuelle Einschätzung anfragen
+              </button>
+
+              <p class="tm-form-trust">Kein Spam. Keine Weitergabe deiner Daten.</p>
+            </form>
 
           <?php endif; ?>
 
-        </div>
-      </section>
-
-    <?php else : ?>
-
-      <div class="tm-check-hero-form-card tm-report-form-card tm-report-form-card-alone">
-        <p class="tm-form-label">Website eintragen</p>
-        <h2>Wartungsampel starten.</h2>
-
-        <form method="get" class="tm-form tm-check-form">
-          <input
-            type="text"
-            name="website"
-            placeholder="deine-website.de"
-            inputmode="url"
-            autocomplete="url"
-            required
-          >
-
-          <button type="submit" class="tm-btn tm-btn-blue">
-            Wartungsampel anzeigen
-          </button>
-        </form>
-      </div>
-
-    <?php endif; ?>
-
-  </div>
-</section>
-
-<?php if (empty($website) || $is_wordpress_site) : ?>
-
-<section class="tm-check-explainer">
-
-  <div class="tm-check-explainer-grid">
-
-    <div class="tm-check-explainer-main">
-
-      <span class="tm-check-kicker">
-        Was der Mini-Check nicht sehen kann
-      </span>
-
-      <h2>
-        Die kritischsten Wartungspunkte liegen im Backend.
-      </h2>
-
-      <p>
-        Eine Website kann von außen normal wirken, während im Hintergrund
-        Updates offen sind, Backups nicht funktionieren oder Benutzerrechte
-        unsauber vergeben wurden.
-      </p>
-
-      <div class="tm-check-tags">
-
-        <?php foreach ($backend_check_items as $item) : ?>
-          <span><?php echo esc_html($item); ?></span>
-        <?php endforeach; ?>
+        <?php endif; ?>
 
       </div>
+    </section>
 
-    </div>
+  <?php endif; ?>
 
-    <div class="tm-check-explainer-side">
+<?php else : ?>
 
-      <span class="tm-check-kicker">
-        Warum du nicht warten solltest
-      </span>
+  <div class="tm-check-hero-form-card tm-report-form-card tm-report-form-card-alone">
+    <p class="tm-form-label">Website eintragen</p>
+    <h2>Website-Check starten.</h2>
 
-      <div class="tm-check-side-points">
+    <form method="get" class="tm-form tm-check-form">
+      <input
+        type="text"
+        name="website"
+        placeholder="deine-website.de"
+        inputmode="url"
+        autocomplete="url"
+        required>
 
-        <div class="tm-check-side-point">
-          <strong>Veraltete Plugins</strong>
-          <p>Kleine Sicherheitslücken bleiben oft unbemerkt.</p>
-        </div>
-
-        <div class="tm-check-side-point">
-          <strong>Kontaktformulare</strong>
-          <p>Können ausfallen, ohne dass es jemand merkt.</p>
-        </div>
-
-        <div class="tm-check-side-point">
-          <strong>Backups & Updates</strong>
-          <p>Sind oft erst dann wichtig, wenn die Website Probleme macht.</p>
-        </div>
-
-      </div>
-
-    </div>
-
+      <button type="submit" class="tm-btn tm-btn-blue">
+        Website-Check anzeigen
+      </button>
+    </form>
   </div>
-
-  <div class="tm-check-bottom-quote">
-
-    <span>Wartung startet hinter den Kulissen</span>
-
-    <h3>Die Ampel ist nur der Einstieg.</h3>
-
-    <p>
-      Entscheidend ist nicht nur, was von außen sichtbar ist.
-      Entscheidend ist, ob deine Website im Hintergrund sauber gepflegt,
-      geschützt und betreut wird.
-    </p>
-
-  </div>
-
-</section>
 
 <?php endif; ?>
 
+</div>
+  </section>
+
+  <?php if (empty($website)) : ?>
+
+    <section class="tm-check-preview">
+      <div class="tm-container">
+
+        <div class="tm-check-preview-head">
+          <p class="tm-eyebrow">Was der Check sichtbar macht</p>
+
+          <h2>Eine erste technische Einschätzung deiner WordPress-Website.</h2>
+
+          <p>
+            Der Website-Check prüft öffentlich sichtbare Signale deiner Website
+            und zeigt dir, ob technische Wartung, Sicherheit und Betreuung sinnvoll sind.
+          </p>
+        </div>
+
+        <div class="tm-check-preview-grid">
+
+          <div class="tm-check-preview-card tm-check-preview-card-main">
+            <span class="tm-check-preview-label">Analyse-Vorschau</span>
+
+            <div class="tm-check-preview-status">
+              <i></i>
+              <strong>WordPress-Signale werden geprüft</strong>
+            </div>
+
+            <ul>
+              <li>WordPress-Struktur erkennen</li>
+              <li>Plugins & Theme-Hinweise finden</li>
+              <li>SSL und Erreichbarkeit prüfen</li>
+              <li>Sicherheitsheader einordnen</li>
+              <li>Formulare und externe Dienste erkennen</li>
+            </ul>
+          </div>
+
+          <div class="tm-check-preview-card">
+            <span>01</span>
+            <strong>Technik erkennen</strong>
+            <p>Der Check sucht nach öffentlich sichtbaren WordPress-Hinweisen.</p>
+          </div>
+
+          <div class="tm-check-preview-card">
+            <span>02</span>
+            <strong>Risiken einordnen</strong>
+            <p>Auffälligkeiten werden verständlich als Wartungssignale dargestellt.</p>
+          </div>
+
+          <div class="tm-check-preview-card">
+            <span>03</span>
+            <strong>Nächsten Schritt verstehen</strong>
+            <p>Du siehst, welche Punkte regelmäßig betreut werden sollten.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  <?php endif; ?>
+
+  <?php if (empty($website) || $is_wordpress_site) : ?>
+
+    <section class="tm-check-explainer">
+
+      <div class="tm-check-explainer-grid">
+
+        <div class="tm-check-explainer-main">
+
+          <span class="tm-check-kicker">
+            Was der Mini-Check nicht sehen kann
+          </span>
+
+          <h2>
+            Die kritischsten Wartungspunkte liegen im Backend.
+          </h2>
+
+          <p>
+            Eine Website kann von außen normal wirken, während im Hintergrund
+            Updates offen sind, Backups nicht funktionieren oder Benutzerrechte
+            unsauber vergeben wurden.
+          </p>
+
+          <div class="tm-check-tags">
+
+            <?php foreach ($backend_check_items as $item) : ?>
+              <span><?php echo esc_html($item); ?></span>
+            <?php endforeach; ?>
+
+          </div>
+
+        </div>
+
+        <div class="tm-check-explainer-side">
+
+          <span class="tm-check-kicker">
+            Warum du nicht warten solltest
+          </span>
+
+          <div class="tm-check-side-points">
+
+            <div class="tm-check-side-point">
+              <strong>Veraltete Plugins</strong>
+              <p>Kleine Sicherheitslücken bleiben oft unbemerkt.</p>
+            </div>
+
+            <div class="tm-check-side-point">
+              <strong>Kontaktformulare</strong>
+              <p>Können ausfallen, ohne dass es jemand merkt.</p>
+            </div>
+
+            <div class="tm-check-side-point">
+              <strong>Backups & Updates</strong>
+              <p>Sind oft erst dann wichtig, wenn die Website Probleme macht.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="tm-check-bottom-quote">
+
+        <span>Wartung startet hinter den Kulissen</span>
+
+        <h3>Der Website-Check ist nur der Einstieg.</h3>
+
+        <p>
+          Entscheidend ist nicht nur, was von außen sichtbar ist.
+          Entscheidend ist, ob deine Website im Hintergrund sauber gepflegt,
+          geschützt und betreut wird.
+        </p>
+
+      </div>
+
+    </section>
+
+  <?php endif; ?>
+
 </main>
+
+<div class="tm-scan-loader" id="tmScanLoader" aria-hidden="true">
+  <div class="tm-scan-loader-inner">
+
+    <div class="tm-scan-step">
+      Website wird geprüft
+    </div>
+
+    <p class="tm-scan-note">
+      Bitte kurz warten. Der Website-Check wird vorbereitet.
+    </p>
+
+    <div class="tm-scan-dots">
+      <i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <div class="tm-scan-brand">
+      Mini-Check durch <strong>toabai.media</strong>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.tm-check-form, .tm-website-check-card, form[action*="website-pruefen"]');
+
+    const steps = [
+      'Website wird geladen',
+      'Weiterleitungen werden verfolgt',
+      'Antwortzeit wird gemessen',
+      'SSL wird geprüft',
+      'WordPress-Signale werden gesucht',
+      'Sicherheitsheader werden analysiert',
+      'Website-Check wird vorbereitet'
+    ];
+
+    function normalizeWebsiteInput(value) {
+      let url = value.trim();
+
+      url = url.replace(/\s+/g, '');
+      url = url.replace(/^https?:\/\//i, '');
+      url = url.replace(/\/+$/g, '');
+
+      if (url && !url.includes('.')) {
+        url = url + '.de';
+      }
+
+      return 'https://' + url;
+    }
+
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function() {
+        const websiteInput = form.querySelector('input[name="website"]');
+
+        if (websiteInput && websiteInput.value.trim() !== '') {
+          websiteInput.value = normalizeWebsiteInput(websiteInput.value);
+        }
+
+        const loader = document.getElementById('tmScanLoader');
+        const stepEl = document.querySelector('.tm-scan-step');
+
+        if (loader) {
+          loader.classList.add('is-visible');
+          loader.setAttribute('aria-hidden', 'false');
+        }
+
+        if (stepEl && !stepEl.dataset.running) {
+          stepEl.dataset.running = 'true';
+
+          let i = 0;
+          stepEl.textContent = steps[i];
+
+          setInterval(function() {
+            i = (i + 1) % steps.length;
+            stepEl.textContent = steps[i];
+          }, 750);
+        }
+      });
+    });
+  });
+</script>
 
 <?php get_footer(); ?>

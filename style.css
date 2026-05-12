@@ -4360,3 +4360,1507 @@ fff
     grid-template-columns: 1fr;
   }
 }
+
+.tm-success-box-modern{
+  max-width:700px;
+  margin:0 auto;
+  padding:48px;
+  border-radius:32px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.7);
+  box-shadow:0 30px 80px rgba(0,0,0,0.28);
+  text-align:center;
+}
+
+.tm-success-icon{
+  width:72px;
+  height:72px;
+  margin:0 auto 24px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  box-shadow:0 10px 30px rgba(34,197,94,0.35);
+}
+
+.tm-success-kicker{
+  display:inline-block;
+  margin-bottom:14px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#2563eb;
+}
+
+.tm-success-box-modern h2{
+  margin:0 0 18px;
+  font-size:42px;
+  line-height:1.05;
+  color:#0f172a;
+}
+
+.tm-success-box-modern p{
+  margin:0 auto;
+  max-width:540px;
+  font-size:18px;
+  line-height:1.7;
+  color:#475569;
+}
+
+.tm-success-site{
+  margin-top:30px;
+  padding:16px 22px;
+  border-radius:18px;
+  background:#f5f7fa;
+  border:1px solid #e2e8f0;
+  font-size:15px;
+  color:#475569;
+}
+
+.tm-success-site strong{
+  color:#0f172a;
+}
+
+.tm-success-note{
+  margin-top:24px;
+  font-size:14px;
+  color:#64748b;
+}
+
+@media (max-width:768px){
+
+  .tm-success-box-modern{
+    padding:34px 24px;
+    border-radius:24px;
+  }
+
+  .tm-success-box-modern h2{
+    font-size:34px;
+  }
+
+  .tm-success-box-modern p{
+    font-size:16px;
+  }
+
+}
+
+/* =========================
+   Zielgruppe / Für wen
+========================= */
+
+.tw-target {
+  padding: 110px 0;
+  background:
+    radial-gradient(circle at top left, rgba(37,99,235,0.08), transparent 40%),
+    #ffffff;
+}
+
+.tw-target-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.tw-target-card {
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow:
+    0 10px 40px rgba(15,23,42,0.04);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.tw-target-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(37,99,235,0.18);
+  box-shadow:
+    0 18px 60px rgba(15,23,42,0.08);
+}
+
+.tw-target-card strong {
+  display: block;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  color: #0f172a;
+  margin-bottom: 14px;
+}
+
+.tw-target-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+/* =========================
+   Hero Secondary Button
+========================= */
+
+.tm-btn-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,23,42,0.12);
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.tm-btn-light:hover {
+  background: #f8fafc;
+  border-color: rgba(15,23,42,0.18);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   Wartungspaket V2
+========================= */
+
+.tw-package {
+  padding: 130px 0;
+  background:
+    radial-gradient(circle at top right, rgba(37,99,235,0.08), transparent 35%),
+    #ffffff;
+}
+
+.tw-package-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 420px;
+  gap: 80px;
+  align-items: center;
+}
+
+.tw-package-content h2 {
+  max-width: 640px;
+}
+
+.tw-package-lead {
+  max-width: 640px;
+  margin-top: 24px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #475569;
+}
+
+.tw-package-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.tw-package-points div {
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow:
+    0 10px 40px rgba(15,23,42,0.04);
+}
+
+.tw-package-points strong {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.tw-package-points p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.tw-price-card-v2 {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f8fbff 100%
+  );
+  border: 1px solid rgba(37,99,235,0.12);
+  border-radius: 34px;
+  padding: 42px;
+  box-shadow:
+    0 30px 80px rgba(15,23,42,0.08);
+}
+
+.tw-price-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(37,99,235,0.1);
+  color: #2563eb;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.tw-price-big {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 18px 0 30px;
+}
+
+.tw-price-big span {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.tw-price-big strong {
+  font-size: 4rem;
+  line-height: 1;
+  color: #0f172a;
+  letter-spacing: -0.04em;
+}
+
+.tw-price-big em {
+  font-style: normal;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.tw-price-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0 0 34px;
+  padding: 0;
+  list-style: none;
+}
+
+.tw-price-list li {
+  position: relative;
+  padding-left: 28px;
+  color: #334155;
+}
+
+.tw-price-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #2563eb;
+}
+
+.tw-price-card-v2 small {
+  display: block;
+  margin-top: 20px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* =========================
+   Nutzen / Vorteile
+========================= */
+
+.tw-benefits {
+  padding: 120px 0;
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f8fafc 100%
+    );
+}
+
+.tw-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.tw-benefit-card {
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 28px;
+  padding: 34px;
+  box-shadow:
+    0 10px 40px rgba(15,23,42,0.04);
+}
+
+.tw-benefit-card strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+.tw-benefit-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+/* =========================
+   Persönliche Betreuung
+========================= */
+
+.tw-human {
+  padding: 130px 0;
+  background:
+    radial-gradient(circle at bottom left, rgba(37,99,235,0.06), transparent 35%),
+    #ffffff;
+}
+
+.tw-human-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) 420px;
+  gap: 80px;
+  align-items: center;
+}
+
+.tw-human-lead {
+  margin-top: 24px;
+  max-width: 640px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #475569;
+}
+
+.tw-human-points {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 42px;
+}
+
+.tw-human-points div {
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+}
+
+.tw-human-points strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+.tw-human-points p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.tw-human-quote-box {
+  position: relative;
+  padding: 42px;
+  border-radius: 34px;
+  background:
+    linear-gradient(
+      180deg,
+      #0f172a 0%,
+      #111c33 100%
+    );
+  color: #ffffff;
+  box-shadow:
+    0 30px 80px rgba(15,23,42,0.18);
+}
+
+.tw-human-quote-box p {
+  margin: 0 0 28px;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.92);
+}
+
+.tw-human-quote-box strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.tw-human-quote-box span {
+  display: block;
+  margin-top: 6px;
+  color: rgba(255,255,255,0.65);
+}
+
+/* ========================================
+   Premium Spacing & Typography Pass
+======================================== */
+
+/* Globale Section-Abstände */
+
+.tw-target,
+.tw-risk,
+.tw-solution,
+.tw-process,
+.tw-takeover,
+.tw-package,
+.tw-benefits,
+.tw-trust,
+.tw-human,
+.tw-faq,
+.tw-final {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mehr Luft zwischen Sections */
+
+.tw-process,
+.tw-takeover,
+.tw-benefits,
+.tw-human,
+.tw-faq {
+  padding-top: 140px;
+  padding-bottom: 140px;
+}
+
+/* Headlines ruhiger */
+
+.tw-section-head {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tw-section-head h2 {
+  max-width: 680px;
+  margin:
+    18px auto 0;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+/* Große Headlines allgemein */
+
+.tw-solution h2,
+.tw-package h2,
+.tw-human h2,
+.tw-trust h2 {
+  max-width: 720px;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+/* Hero stärker */
+
+.tw-hero {
+  padding-top: 150px;
+  padding-bottom: 150px;
+}
+
+.tw-hero-content h1 {
+  max-width: 620px;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.tw-hero-text {
+  max-width: 580px;
+  margin-top: 30px;
+  font-size: 1.08rem;
+  line-height: 1.85;
+}
+
+/* Zielgruppenbereich ruhiger */
+
+.tw-target-grid {
+  margin-top: 70px;
+}
+
+/* Risiko-Sektion stärker */
+
+.tw-risk {
+  padding-top: 150px;
+  padding-bottom: 150px;
+}
+
+.tw-risk-grid {
+  margin-top: 60px;
+}
+
+/* Lösung mehr Premium */
+
+.tw-solution {
+  padding-top: 170px;
+  padding-bottom: 170px;
+}
+
+.tw-feature-panel {
+  transform: translateY(10px);
+}
+
+/* Prozessbereich */
+
+.tw-process-grid {
+  margin-top: 70px;
+}
+
+.tw-process-grid div {
+  min-height: 190px;
+  padding: 34px;
+}
+
+/* Übernahme-Box */
+
+.tw-takeover-box {
+  padding: 70px;
+  border-radius: 38px;
+}
+
+/* Paketbereich größer */
+
+.tw-package-layout {
+  gap: 110px;
+}
+
+.tw-price-card-v2 {
+  padding: 52px;
+  border-radius: 38px;
+}
+
+.tw-price-big strong {
+  font-size: 4.8rem;
+}
+
+/* Nutzenbereich */
+
+.tw-benefits-grid {
+  margin-top: 70px;
+}
+
+/* Vertrauensbereich */
+
+.tw-trust-grid {
+  gap: 90px;
+  align-items: center;
+}
+
+.tw-trust-image img {
+  border-radius: 30px;
+}
+
+/* Persönliche Section */
+
+.tw-human {
+  padding-top: 170px;
+  padding-bottom: 170px;
+}
+
+.tw-human-grid {
+  gap: 110px;
+}
+
+.tw-human-quote-box {
+  padding: 54px;
+  border-radius: 40px;
+}
+
+.tw-human-quote-box p {
+  font-size: 1.35rem;
+  line-height: 1.8;
+}
+
+/* FAQ hochwertiger */
+
+.tw-faq-list {
+  max-width: 860px;
+  margin: 70px auto 0;
+}
+
+.tw-faq-list details {
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow:
+    0 10px 40px rgba(15,23,42,0.04);
+}
+
+.tw-faq-list summary {
+  padding: 30px 34px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.tw-faq-list p {
+  padding:
+    0 34px 30px;
+  line-height: 1.8;
+  color: #475569;
+}
+
+/* Final CTA massiv stärker */
+
+.tw-final {
+  padding-top: 180px;
+  padding-bottom: 180px;
+}
+
+.tw-final-box {
+  max-width: 980px;
+  padding: 90px;
+  border-radius: 42px;
+}
+
+.tw-final-box h2 {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+/* Buttons hochwertiger */
+
+.tm-btn {
+  min-height: 54px;
+  padding: 0 26px;
+  font-weight: 600;
+  border-radius: 999px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.tm-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Karten subtil hochwertiger */
+
+.tw-target-card,
+.tw-benefit-card,
+.tw-package-points div,
+.tw-process-grid div {
+  box-shadow:
+    0 12px 40px rgba(15,23,42,0.04);
+}
+
+
+/* =========================
+   Kleine Vertrauens-Section
+========================= */
+
+.tw-proof {
+  padding-top: 120px;
+  padding-bottom: 40px;
+  background: #ffffff;
+}
+
+.tw-proof-box {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 70px;
+  border-radius: 40px;
+  background:
+    linear-gradient(
+      180deg,
+      #f8fbff 0%,
+      #ffffff 100%
+    );
+  border: 1px solid rgba(37,99,235,0.08);
+  text-align: center;
+  box-shadow:
+    0 20px 60px rgba(15,23,42,0.05);
+}
+
+.tw-proof-box h2 {
+  max-width: 720px;
+  margin:
+    18px auto 0;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.tw-proof-box p {
+  max-width: 720px;
+  margin:
+    28px auto 0;
+  color: #475569;
+  line-height: 1.9;
+  font-size: 1.05rem;
+}
+
+.tw-proof-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 42px;
+}
+
+.tw-proof-items span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(37,99,235,0.08);
+  color: #2563eb;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   Mobile Optimierung Wartungsseite
+======================================== */
+
+@media (max-width: 980px) {
+
+  /* Global */
+
+  .tm-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* Hero */
+
+  .tw-hero {
+    padding-top: 110px;
+    padding-bottom: 110px;
+  }
+
+  .tw-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .tw-hero-content h1 {
+    max-width: 100%;
+    font-size: clamp(3rem, 10vw, 4.8rem);
+    line-height: 0.95;
+  }
+
+  .tw-hero-text {
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .tw-status-card {
+    max-width: 420px;
+  }
+
+  /* Zielgruppe */
+
+  .tw-target-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Risiko */
+
+  .tw-risk-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Lösung */
+
+  .tw-solution {
+    padding-top: 130px;
+    padding-bottom: 130px;
+  }
+
+  .tw-solution-grid {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .tw-feature-panel {
+    grid-template-columns: 1fr;
+  }
+
+  /* Prozess */
+
+  .tw-process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Übernahme */
+
+  .tw-takeover-box {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding: 50px;
+  }
+
+  /* Paket */
+
+  .tw-package-layout {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .tw-package-points {
+    grid-template-columns: 1fr;
+  }
+
+  .tw-price-card-v2 {
+    max-width: 460px;
+  }
+
+  /* Nutzen */
+
+  .tw-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Vertrauen */
+
+  .tw-trust-grid {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .tw-trust-image {
+    max-width: 460px;
+  }
+
+  /* Persönlich */
+
+  .tw-human {
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
+
+  .tw-human-grid {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .tw-human-quote-box {
+    max-width: 460px;
+  }
+
+  /* Proof */
+
+  .tw-proof-box {
+    padding: 50px;
+  }
+
+  /* Final CTA */
+
+  .tw-final {
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
+
+  .tw-final-box {
+    padding: 60px 40px;
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  /* Global */
+
+  .tm-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Hero */
+
+  .tw-hero {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  .tw-hero-content h1 {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .tm-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tm-btn {
+    width: 100%;
+  }
+
+  .tw-status-card {
+    max-width: 100%;
+  }
+
+  /* Sections */
+
+  .tw-target,
+  .tw-risk,
+  .tw-solution,
+  .tw-process,
+  .tw-takeover,
+  .tw-package,
+  .tw-benefits,
+  .tw-trust,
+  .tw-human,
+  .tw-faq,
+  .tw-final {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  /* Headlines */
+
+  .tw-section-head h2,
+  .tw-solution h2,
+  .tw-package h2,
+  .tw-human h2,
+  .tw-trust h2,
+  .tw-proof-box h2,
+  .tw-final-box h2 {
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1;
+  }
+
+  /* Prozess */
+
+  .tw-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Karten */
+
+  .tw-target-card,
+  .tw-benefit-card,
+  .tw-package-points div,
+  .tw-process-grid div {
+    padding: 28px;
+  }
+
+  /* Übernahme */
+
+  .tw-takeover-box {
+    padding: 40px 30px;
+  }
+
+  /* Preisbox */
+
+  .tw-price-card-v2 {
+    padding: 40px 30px;
+  }
+
+  .tw-price-big strong {
+    font-size: 4rem;
+  }
+
+  /* Persönliche Quote */
+
+  .tw-human-quote-box {
+    padding: 40px 32px;
+  }
+
+  .tw-human-quote-box p {
+    font-size: 1.15rem;
+  }
+
+  /* FAQ */
+
+  .tw-faq-list summary {
+    padding: 24px 24px;
+  }
+
+  .tw-faq-list p {
+    padding:
+      0 24px 24px;
+  }
+
+  /* Proof */
+
+  .tw-proof-box {
+    padding: 40px 28px;
+  }
+
+  .tw-proof-items {
+    gap: 10px;
+  }
+
+  .tw-proof-items span {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Final CTA */
+
+  .tw-final-box {
+    padding: 50px 28px;
+  }
+
+}
+
+/* ========================================
+   Mobile Feintuning
+======================================== */
+
+@media (max-width: 640px) {
+
+  /* Hero kompakter */
+
+  .tw-hero {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .tw-hero-grid {
+    gap: 50px;
+  }
+
+  .tw-hero-content h1 {
+    font-size: clamp(2.3rem, 11vw, 3.4rem);
+    line-height: 0.98;
+    max-width: 320px;
+  }
+
+  .tw-hero-text {
+    margin-top: 22px;
+    line-height: 1.7;
+  }
+
+  /* Buttons kompakter */
+
+  .tm-actions {
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .tm-btn {
+    min-height: 50px;
+  }
+
+  /* Allgemein weniger Höhe */
+
+  .tw-target,
+  .tw-risk,
+  .tw-solution,
+  .tw-process,
+  .tw-takeover,
+  .tw-package,
+  .tw-benefits,
+  .tw-trust,
+  .tw-human,
+  .tw-faq,
+  .tw-final {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  /* Risiko */
+
+  .tw-risk-grid {
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  /* Lösung */
+
+  .tw-solution {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  .tw-solution-grid {
+    gap: 50px;
+  }
+
+  .tw-feature-panel {
+    gap: 16px;
+  }
+
+  /* Prozess */
+
+  .tw-process-grid {
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .tw-process-grid div {
+    min-height: auto;
+  }
+
+  /* Übernahme */
+
+  .tw-takeover-box {
+    gap: 34px;
+  }
+
+  /* Paket */
+
+  .tw-package-layout {
+    gap: 50px;
+  }
+
+  .tw-package-points {
+    gap: 16px;
+    margin-top: 34px;
+  }
+
+  /* Nutzen */
+
+  .tw-benefits-grid {
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  /* Vertrauen */
+
+  .tw-trust-grid {
+    gap: 40px;
+  }
+
+  /* Persönliche Section */
+
+  .tw-human {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  .tw-human-grid {
+    gap: 42px;
+  }
+
+  .tw-human-points {
+    gap: 18px;
+    margin-top: 30px;
+  }
+
+  .tw-human-quote-box {
+    padding: 34px 28px;
+    border-radius: 30px;
+  }
+
+  .tw-human-quote-box p {
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+
+  /* FAQ */
+
+  .tw-faq-list {
+    margin-top: 40px;
+  }
+
+  /* Proof */
+
+  .tw-proof {
+    padding-top: 80px;
+    padding-bottom: 20px;
+  }
+
+  /* Final CTA */
+
+  .tw-final {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  .tw-final-box h2 {
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1;
+  }
+
+}
+
+/* ========================================
+   Website Check Analyse-Vorschau
+======================================== */
+
+.tm-check-preview {
+  padding: 130px 0;
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 38%),
+    #f8fafc;
+}
+
+.tm-check-preview-head {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tm-check-preview-head h2 {
+  max-width: 720px;
+  margin: 18px auto 0;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.tm-check-preview-head p {
+  max-width: 660px;
+  margin: 24px auto 0;
+  color: #475569;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.tm-check-preview-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr 1fr;
+  gap: 22px;
+  margin-top: 70px;
+}
+
+.tm-check-preview-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 30px;
+  padding: 32px;
+  box-shadow:
+    0 14px 45px rgba(15, 23, 42, 0.05);
+}
+
+.tm-check-preview-card span,
+.tm-check-preview-label {
+  display: inline-flex;
+  margin-bottom: 18px;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tm-check-preview-card strong {
+  display: block;
+  color: #0f172a;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.tm-check-preview-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.tm-check-preview-card-main {
+  background:
+    linear-gradient(180deg, #0f172a 0%, #111c33 100%);
+  color: #ffffff;
+}
+
+.tm-check-preview-card-main strong,
+.tm-check-preview-card-main .tm-check-preview-label {
+  color: #ffffff;
+}
+
+.tm-check-preview-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.tm-check-preview-status i {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.14);
+}
+
+.tm-check-preview-card-main ul {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tm-check-preview-card-main li {
+  position: relative;
+  padding-left: 24px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+}
+
+.tm-check-preview-card-main li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #3b82f6;
+}
+
+@media (max-width: 980px) {
+  .tm-check-preview-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tm-check-preview-card-main {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .tm-check-preview {
+    padding: 80px 0;
+  }
+
+  .tm-check-preview-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 44px;
+  }
+
+  .tm-check-preview-card {
+    padding: 28px;
+    border-radius: 26px;
+  }
+
+  .tm-check-preview-head h2 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+}
+
+.tm-form-benefits {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.tm-form-benefit {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.tm-form-benefit span {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.14);
+  color: #60a5fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.tm-form-benefit p {
+  margin: 0;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.5;
+}
+
+.tm-form-intro {
+  margin-top: 1rem;
+}
+
+.tm-form-benefits {
+  margin: 1.75rem 0 2rem;
+}
+
+.tm-form-benefit p {
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.tm-action-form-card input,
+.tm-action-form-card textarea {
+  color: #0f172a;
+}
+
+.tm-action-form-card input::placeholder,
+.tm-action-form-card textarea::placeholder {
+  color: #64748b;
+}
+
+.tm-form-benefit p {
+  color: #334155;
+  font-weight: 500;
+}
+
+.tm-form-benefits {
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+
+  .tm-check-score-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .tm-check-score-left strong {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+}
+
+/* ========================================
+   Website Check Score Label
+======================================== */
+
+.tm-score-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 130px;
+}
+
+.tm-score-value span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tm-score-value strong {
+  color: #ffffff;
+  font-size: clamp(3.4rem, 8vw, 5.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+@media (max-width: 768px) {
+  .tm-check-score-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
+  }
+
+  .tm-score-value {
+    min-width: 0;
+  }
+
+  .tm-score-value strong {
+    font-size: 3.4rem;
+  }
+}
+

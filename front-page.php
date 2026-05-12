@@ -19,12 +19,12 @@
         <ul class="tm-start-trust-list">
           <li>Echter Mini-Check</li>
           <li>Öffentlich sichtbare Risiken</li>
-          <li>Klare Wartungsampel</li>
+          <li>Klare Einschätzung</li>
         </ul>
       </div>
 
       <form class="tm-start-form-card tm-website-check-card tm-check-form" action="<?php echo esc_url(home_url('/website-pruefen/')); ?>" method="get">
-        <p class="tm-form-label">Kostenlose Wartungsampel</p>
+        <p class="tm-form-label">Kostenloser Website-Check</p>
 
         <h2>Website prüfen lassen</h2>
 
@@ -123,7 +123,7 @@
         </div>
 
         <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/website-pruefen/')); ?>">
-          Wartungsampel starten
+          Website-Check starten
         </a>
       </div>
 
@@ -270,7 +270,7 @@
     <div class="tm-container">
       <div class="tm-start-final-box">
         <p class="tm-eyebrow">Bereit?</p>
-        <h2>Starte mit der Wartungsampel.</h2>
+        <h2>Starte mit dem Website-Check</h2>
         <p>Der Mini-Check zeigt dir erste öffentlich sichtbare Hinweise und führt dich zur persönlichen Einschätzung.</p>
         <a class="tm-btn tm-btn-blue" href="<?php echo esc_url(home_url('/website-pruefen/')); ?>">
           Website prüfen lassen
@@ -289,7 +289,7 @@
     </div>
 
     <p class="tm-scan-note">
-      Bitte kurz warten. Die Wartungsampel wird vorbereitet.
+      Bitte kurz warten. Der Website-Check wird vorbereitet.
     </p>
 
     <div class="tm-scan-dots">
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'SSL wird geprüft',
     'WordPress-Signale werden gesucht',
     'Sicherheitsheader werden analysiert',
-    'Wartungsampel wird vorbereitet'
+    'Website-Check wird vorbereitet'
   ];
 
   function normalizeWebsiteInput(value) {
