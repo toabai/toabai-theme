@@ -17,20 +17,20 @@ function toabai_theme_setup() {
 add_action('after_setup_theme', 'toabai_theme_setup');
 
 function toabai_enqueue_assets() {
+    $theme_version = wp_get_theme()->get('Version');
+
     wp_enqueue_style(
         'toabai-style',
         get_stylesheet_uri(),
         [],
-        wp_get_theme()->get('Version')
+        filemtime(get_stylesheet_directory() . '/style.css')
     );
-
-    $version = wp_get_theme()->get('Version');
 
     wp_enqueue_script(
         'toabai-menu',
         get_template_directory_uri() . '/assets/js/menu.js',
         [],
-        $version,
+        $theme_version,
         true
     );
     wp_script_add_data('toabai-menu', 'strategy', 'defer');
@@ -39,7 +39,7 @@ function toabai_enqueue_assets() {
         'toabai-reveal',
         get_template_directory_uri() . '/assets/js/reveal.js',
         [],
-        $version,
+        $theme_version,
         true
     );
     wp_script_add_data('toabai-reveal', 'strategy', 'defer');

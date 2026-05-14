@@ -1259,21 +1259,25 @@ if (!empty($website) && empty($success)) {
   <section class="tm-check-single-hero tm-check-signal-hero">
     <div class="tm-container tm-check-single-wrap">
 
-      <p class="tm-eyebrow">Kostenloser Website Check</p>
+      <?php if (!empty($website)) : ?>
 
-      <h1>Wie gut ist deine WordPress-Website wirklich gepflegt?</h1>
 
-      <p class="tm-check-hero-subline">
-        Der Website-Check analysiert öffentlich sichtbare technische Hinweise und zeigt, ob deine WordPress-Website regelmäßig betreut wirkt.
-      </p>
+
+      <?php else : ?>
+
+        <p class="tm-eyebrow">Kostenloser Website Check</p>
+
+        <h1>Wie gut ist deine WordPress-Website wirklich gepflegt?</h1>
+
+        <p class="tm-check-hero-subline">
+          Der Website-Check analysiert öffentlich sichtbare technische Hinweise und zeigt, ob deine WordPress-Website regelmäßig betreut wirkt.
+        </p>
+
+      <?php endif; ?>
 
       <?php if (!empty($website)) : ?>
 
-        <div class="tm-check-report-meta">
-          <span>Deine Website: <strong><?php echo esc_html($website_host); ?></strong></span>
-          <span>Geprüft am: <?php echo esc_html($scan_time); ?> Uhr</span>
-        </div>
-      
+
         <?php if (!empty($site_facts['redirect_detected'])) : ?>
           <div class="tm-redirect-notice">
             <strong>Weiterleitung erkannt:</strong>
@@ -1343,10 +1347,7 @@ if (!empty($website) && empty($success)) {
 
 
                     <div class="tm-action-score-top">
-                      <div class="tm-score-value">
-                        <span>Pflegezustand</span>
-                        <strong><?php echo esc_html($maintenance_percent); ?>%</strong>
-                      </div>
+
                       <div>
                         <span class="tm-score-kicker">Website-Zustand</span>
                         <h2><?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?></h2>
@@ -1485,456 +1486,596 @@ if (!empty($website) && empty($success)) {
 
             <?php else : ?>
 
-              <!-- NEUER COMPACT HEADER -->
-              <!-- START -->
-              
 
-              <div class="tm-check-score-strip tm-check-score-strip-<?php echo esc_attr(tm_get_maintenance_status($score_points, $risk_count)); ?>">
 
-                <div class="tm-check-score-left">
-                  <span class="tm-check-score-dot"></span>
 
-                  <div class="tm-score-value">
-                    <span>Pflegezustand</span>
-                    <strong><?php echo esc_html($maintenance_percent); ?>%</strong>
-                  </div>
+              <div class="tm-mobile-report-card tm-report-card-compact">
+
+                <div class="tm-report-hero-head tm-report-hero-head-clean">
 
                   <div>
-                    <span class="tm-score-kicker">Technischer Betreuungsbedarf</span>
-                    <h2><?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?></h2>
-                    <p><?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?></p>
+                    <span class="tm-report-eyebrow">Website Check</span>
+                    <h2><?php echo esc_html($website_host); ?></h2>
+                    <p>Website geprüft am <?php echo esc_html($scan_time); ?> Uhr</p>
                   </div>
+
                 </div>
 
-                <div class="tm-check-score-right">
-                  <div class="tm-check-score-line">
-                    <i style="left: <?php echo esc_attr($maintenance_percent); ?>%;"></i>
+                <div class="tm-report-top-stats">
+
+                  <div class="tm-report-top-card">
+                    <span>Status</span>
+                    <strong>Wartung empfohlen</strong>
                   </div>
 
-                  <div class="tm-check-score-labels">
-                    <span>akut prüfen</span>
-                    <span>laufend betreuen</span>
-                    <span>stabil halten</span>
+                  <div class="tm-report-top-card">
+                    <span>Hinweise</span>
+                    <strong><?php echo esc_html($risk_count); ?></strong>
+                    <small>technische Auffälligkeiten</small>
                   </div>
+
+                  <div class="tm-report-top-card">
+                    <span>Komponenten</span>
+                    <strong><?php echo esc_html($site_facts['plugin_count'] ?? 0); ?></strong>
+                    <small>erkannt & analysiert</small>
+                  </div>
+
+                  <div class="tm-report-top-card">
+                    <span>Kontaktpunkte</span>
+                    <strong><?php echo esc_html($site_facts['form_count'] ?? 0); ?></strong>
+                    <small>auf der Website gefunden</small>
+                  </div>
+
+                </div>
+
+                <div class="tm-mobile-risk-meter">
+
+                  <div class="tm-mobile-risk-bar">
+                    <span></span>
+                  </div>
+
+                  <div class="tm-mobile-risk-labels">
+                    <small>Gut</small>
+                    <small>OK</small>
+                    <small>Achtung</small>
+                    <small>Kritisch</small>
+                  </div>
+
+                </div>
+
+                <div class="tm-report-maintenance-areas">
+
+                  <div class="tm-report-maintenance-head">
+                    <strong>Wartungsbereiche im Überblick</strong>
+                    <span>öffentlich erkennbare Signale</span>
+                  </div>
+
+                  <div class="tm-report-area-grid">
+
+                    <div class="tm-report-area-card tm-report-area-good">
+                      <span class="tm-report-area-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M12 3L19 6V11C19 16 15.5 19.5 12 21C8.5 19.5 5 16 5 11V6L12 3Z" stroke="currentColor" stroke-width="2" />
+                          <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <strong>SSL & Sicherheit</strong>
+                      <em>Sehr gut</em>
+                      <small>HTTPS aktiv</small>
+                    </div>
+
+                    <div class="tm-report-area-card tm-report-area-warning">
+                      <span class="tm-report-area-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M9 3H15V8H20V14H15V21H9V14H4V8H9V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <strong>Plugins & Theme</strong>
+                      <em>Achtung</em>
+                      <small><?php echo esc_html($site_facts['plugin_count'] ?? 0); ?> erkannt</small>
+                    </div>
+
+                    <div class="tm-report-area-card tm-report-area-warning">
+                      <span class="tm-report-area-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <rect x="6" y="10" width="12" height="10" rx="2" stroke="currentColor" stroke-width="2" />
+                          <path d="M8 10V7C8 4.8 9.8 3 12 3C14.2 3 16 4.8 16 7V10" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                      </span>
+                      <strong>Login & Zugriff</strong>
+                      <em>Achtung</em>
+                      <small>Login prüfen</small>
+                    </div>
+
+                    <div class="tm-report-area-card tm-report-area-good">
+                      <span class="tm-report-area-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M4 5H20V15H4V5Z" stroke="currentColor" stroke-width="2" />
+                          <path d="M9 20H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                          <path d="M12 15V20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <strong>Erreichbarkeit</strong>
+                      <em>Sehr gut</em>
+                      <small>Website erreichbar</small>
+                    </div>
+
+                    <div class="tm-report-area-card tm-report-area-warning">
+                      <span class="tm-report-area-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M4 7L12 13L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                      </span>
+                      <strong>Formulare</strong>
+                      <em>Achtung</em>
+                      <small><?php echo esc_html($site_facts['form_count'] ?? 0); ?> erkannt</small>
+                    </div>
+
+                    <div class="tm-report-area-card tm-report-area-bad">
+                      <span class="tm-report-area-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M12 8V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                          <path d="M12 16H12.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                          <path d="M4.9 19H19.1L12 5L4.9 19Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <strong>Externe Dienste</strong>
+                      <em>Prüfen</em>
+                      <small><?php echo esc_html(count($site_facts['external_services'] ?? [])); ?> erkannt</small>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="tm-report-cta-panel">
+
+                  <div class="tm-report-cta-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M12 3L19 6V11C19 16 15.5 19.5 12 21C8.5 19.5 5 16 5 11V6L12 3Z" stroke="currentColor" stroke-width="2" />
+                      <path d="M8.8 12.2L11 14.4L15.4 9.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+
+                  <div class="tm-report-cta-text">
+                    <h3>Du möchtest diese Punkte nicht selbst betreuen?</h3>
+                    <p>Ich übernehme Updates, Sicherheit und laufende Kontrolle deiner WordPress-Website.</p>
+                  </div>
+
+                  <div class="tm-report-cta-action">
+                    <a href="#tm-check-request-form" class="tm-report-cta-button">
+                      Betreuung anfragen
+                      <span>→</span>
+                    </a>
+
+                    <div class="tm-report-cta-trust">
+                      <span>✓ Persönlich</span>
+                      <span>✓ Verlässlich</span>
+                      <span>✓ Transparent</span>
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
-
-              <!-- STOPP -->
-
-
-              <!--
-              <div class="tm-report-areas-head">
-                <span>Was der Check zeigt</span>
-                <strong>Diese Punkte sprechen für laufende Wartung</strong>
-              </div>
-
-              <div class="tm-report-area-grid tm-report-area-grid-v2">
-
-                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['maintainability']['status']); ?>">
-                  <span>WordPress & Wartung</span>
-                  <strong>
-                    <?php
-                    if (($site_facts['plugin_count'] ?? 0) >= 10) {
-                      echo 'Mehrere WordPress-Komponenten brauchen laufende Betreuung';
-                    } elseif (($site_facts['plugin_count'] ?? 0) > 0) {
-                      echo 'Mehrere Komponenten brauchen Betreuung';
-                    } else {
-                      echo 'Die WordPress-Struktur wirkt zurückhaltend sichtbar';
-                    }
-                    ?>
-                  </strong>
-                </div>
-
-                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['security']['status']); ?>">
-                  <span>Sicherheit</span>
-                  <strong>
-                    <?php
-                    if ($report_areas['security']['status'] === 'good') {
-                      echo 'Keine kritischen Sicherheitssignale erkannt';
-                    } else {
-                      echo 'Einige sicherheitsrelevante Punkte sollten geprüft werden';
-                    }
-                    ?>
-                  </strong>
-                </div>
-
-                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['performance']['status']); ?>">
-                  <span>Stabilität & Technik</span>
-                  <strong>
-                    <?php
-                    if ($report_areas['performance']['status'] === 'good') {
-                      echo 'Die Website wirkt technisch grundsätzlich stabil';
-                    } else {
-                      echo 'Antwortzeit und technische Struktur sollten beobachtet werden';
-                    }
-                    ?>
-                  </strong>
-                </div>
-
-                <div class="tm-report-area tm-report-area-<?php echo esc_attr($report_areas['privacy']['status']); ?>">
-                  <span>Externe Dienste</span>
-                  <strong>
-                    <?php
-                    if (!empty($site_facts['external_services'])) {
-                      echo 'Externe Dienste und Einbindungen wurden erkannt';
-                    } else {
-                      echo 'Keine auffälligen externen Dienste erkannt';
-                    }
-                    ?>
-                  </strong>
-                </div>
-
-              </div>
-            -->
 
 
           </div>
 
           <?php if (!empty($diagnosis_signals['technology'])) : ?>
 
-            <div class="tm-report-tech-overview">
-              <div class="tm-report-tech-head">
-                <span>Erkannte Technik</span>
-                <strong>Öffentlich sichtbare Komponenten</strong>
-              </div>
+            <details class="tm-report-accordion">
 
-              <div class="tm-report-tech-grid">
+              <summary class="tm-report-accordion-summary">
 
-                <?php foreach ($diagnosis_signals['technology'] as $item) : ?>
+                <div class="tm-report-accordion-left">
 
-                  <div class="tm-report-tech-item">
-                    <span><?php echo esc_html($item['label']); ?></span>
-                    <strong><?php echo esc_html($item['value']); ?></strong>
+                  <span class="tm-report-accordion-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M4 5.5h16v10H4v-10Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                      <path d="M9 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      <path d="M12 15.5V20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </span>
+
+                  <div>
+                    <strong>Erkannte Technik</strong>
+                    <small>WordPress, Plugins, Theme, Formulare, externe Dienste</small>
                   </div>
 
-                <?php endforeach; ?>
+                </div>
+
+                <span class="tm-report-accordion-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+
+              </summary>
+
+              <div class="tm-report-accordion-content">
+
+                <div class="tm-report-tech-grid tm-report-tech-grid-accordion">
+
+                  <?php foreach ($diagnosis_signals['technology'] as $item) : ?>
+
+                    <div class="tm-report-tech-item">
+                      <span><?php echo esc_html($item['label']); ?></span>
+                      <strong><?php echo esc_html($item['value']); ?></strong>
+                    </div>
+
+                  <?php endforeach; ?>
+
+                </div>
 
               </div>
-            </div>
+
+            </details>
 
           <?php endif; ?>
 
           <?php if (!empty($special_findings)) : ?>
 
-            <section class="tm-special-findings">
+            <details class="tm-report-accordion">
 
-              <div class="tm-special-findings-head">
-                <p class="tm-evidence-label">Sonderprüfung</p>
-                <h2>Besondere Wartungssignale erkannt</h2>
-                <p>
-                  Einige öffentlich sichtbare Hinweise deuten auf zusätzliche technische Anforderungen hin.
-                </p>
-              </div>
+              <summary class="tm-report-accordion-summary">
+                <div class="tm-report-accordion-left">
+                  <span class="tm-report-accordion-icon tm-report-accordion-icon-orange" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M12 3L19 6V11C19 16 15.5 19.5 12 21C8.5 19.5 5 16 5 11V6L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                      <path d="M12 8V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </span>
 
-              <div class="tm-special-findings-grid">
+                  <div>
+                    <strong>Wartungsthemen im Überblick</strong>
+                    <small>Die wichtigsten Punkte auf einen Blick</small>
+                  </div>
+                </div>
 
-                <?php foreach ($special_findings as $index => $finding) : ?>
+                <span class="tm-report-accordion-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </summary>
 
-                  <article class="tm-special-card tm-special-card-<?php echo esc_attr($finding['type']); ?> <?php echo $index === 0 ? 'tm-special-card-featured' : ''; ?>">
+              <div class="tm-report-accordion-content">
 
-                    <div class="tm-special-card-header">
+                <div class="tm-special-findings-grid">
 
-                      <div class="tm-special-icon tm-special-icon-<?php echo esc_attr($finding['accent']); ?>">
-                        <!-- HIER -->
-                        <?php echo tm_get_special_icon_svg($finding['icon'] ?? 'plugin'); ?>
-                        <!-- HIER --->
+                  <?php foreach ($special_findings as $index => $finding) : ?>
+
+                    <article class="tm-special-card tm-special-card-<?php echo esc_attr($finding['type']); ?> <?php echo $index === 0 ? 'tm-special-card-featured' : ''; ?>">
+
+                      <div class="tm-special-card-header">
+
+                        <div class="tm-special-icon tm-special-icon-<?php echo esc_attr($finding['accent']); ?>">
+                          <?php echo tm_get_special_icon_svg($finding['icon'] ?? 'plugin'); ?>
+                        </div>
+
+                        <div class="tm-special-meta">
+
+                          <span class="tm-special-status">
+                            <?php
+                            echo $finding['type'] === 'good'
+                              ? 'POSITIV'
+                              : 'HINWEIS';
+                            ?>
+                          </span>
+
+                          <h3>
+                            <?php echo esc_html($finding['label']); ?>
+                          </h3>
+
+                        </div>
 
                       </div>
 
-                      <div class="tm-special-meta">
-
-                        <span class="tm-special-status">
-                          <?php
-                          echo $finding['type'] === 'good'
-                            ? 'POSITIV'
-                            : 'HINWEIS';
-                          ?>
-                        </span>
-
-                        <h3>
-                          <?php echo esc_html($finding['label']); ?>
-                        </h3>
-
-                      </div>
-
-                    </div>
-
-                    <p class="tm-special-description">
-                      <?php echo esc_html($finding['text']); ?>
-                    </p>
-
-                    <div class="tm-special-meaning-box">
-
-                      <span>BEDEUTUNG</span>
-
-                      <p>
-                        <?php echo esc_html($finding['meaning']); ?>
+                      <p class="tm-special-description">
+                        <?php echo esc_html($finding['text']); ?>
                       </p>
 
-                    </div>
+                      <div class="tm-special-meaning-box">
 
-                  </article>
+                        <span>BEDEUTUNG</span>
 
-                <?php endforeach; ?>
+                        <p>
+                          <?php echo esc_html($finding['meaning']); ?>
+                        </p>
+
+                      </div>
+
+                    </article>
+
+                  <?php endforeach; ?>
+
+                </div>
 
               </div>
 
-            </section>
+            </details>
 
           <?php endif; ?>
 
 
           <!-- Ersetzen  start -->
 
-          <div class="tm-diagnosis-grid">
+          <details class="tm-report-accordion">
 
-            <div class="tm-diagnosis-main">
-              <span class="tm-diagnosis-label">Direkte Diagnose</span>
+            <summary class="tm-report-accordion-summary">
+              <div class="tm-report-accordion-left">
+                <span class="tm-report-accordion-icon tm-report-accordion-icon-blue" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+                    <path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </span>
 
-              <h2>
-                <?php echo esc_html(tm_get_report_headline($score_points, $risk_count)); ?>
-              </h2>
+                <div>
+                  <strong>Was der Mini-Check nicht sehen kann</strong>
+                  <small>Wichtige Bereiche, die nur im Backend prüfbar sind</small>
+                </div>
+              </div>
 
-              <p>
-                <?php echo esc_html(tm_get_maintenance_text($score_points, $risk_count)); ?>
-              </p>
+              <span class="tm-report-accordion-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </summary>
 
-              <div class="tm-diagnosis-kpis tm-diagnosis-kpis-v2">
+            <div class="tm-report-accordion-content">
 
-                <div class="tm-diagnosis-kpi">
-                  <strong><?php echo esc_html($risk_count); ?></strong>
-                  <span>Wartungshinweise</span>
+              <div class="tm-diagnosis-grid">
+
+                <div class="tm-diagnosis-main">
+
+                  <span class="tm-diagnosis-label">
+                    Direkte Einschätzung
+                  </span>
+
+                  <h2>
+                    Deine Website hat mehrere technische Bausteine, die regelmäßig betreut werden sollten.
+                  </h2>
+
+                  <p>
+                    Es geht nicht darum, ob die Website heute funktioniert.
+                    Entscheidend ist, dass WordPress, Plugins, Theme,
+                    Formulare und Sicherheit laufend gepflegt werden müssen.
+                  </p>
+
+                  <div class="tm-diagnosis-kpis tm-diagnosis-kpis-v2">
+
+                    <div class="tm-diagnosis-kpi">
+                      <strong><?php echo esc_html($site_facts['plugin_count'] ?? 0); ?></strong>
+                      <span>erkannte WordPress-Komponenten</span>
+                    </div>
+
+                    <div class="tm-diagnosis-kpi">
+                      <strong><?php echo esc_html(count($check_results)); ?></strong>
+                      <span>technische Prüfpunkte</span>
+                    </div>
+
+                    <div class="tm-diagnosis-kpi tm-diagnosis-kpi-wide">
+
+                      <strong>
+                        <?php
+                        $plugin_string_for_kpi = strtolower(implode(' ', $site_facts['plugins'] ?? []));
+
+                        if (strpos($plugin_string_for_kpi, 'woocommerce') !== false) {
+                          echo 'Shop-System braucht laufende Kontrolle';
+                        } elseif (strpos($plugin_string_for_kpi, 'elementor') !== false) {
+                          echo 'Page Builder braucht regelmäßige Prüfung';
+                        } elseif (($site_facts['plugin_count'] ?? 0) >= 10) {
+                          echo 'Mehrere Systeme brauchen laufende Kontrolle';
+                        } elseif (!empty($site_facts['external_services'])) {
+                          echo 'Externe Dienste sollten im Blick bleiben';
+                        } else {
+                          echo 'Technische Betreuung spart Zeit und Ausfälle';
+                        }
+                        ?>
+                      </strong>
+
+                      <span>technische Einordnung</span>
+
+                    </div>
+
+                  </div>
+
                 </div>
 
-                <div class="tm-diagnosis-kpi">
-                  <strong><?php echo esc_html(count($check_results)); ?></strong>
-                  <span>technische Prüfpunkte</span>
-                </div>
+                <div class="tm-diagnosis-action">
 
-                <div class="tm-diagnosis-kpi tm-diagnosis-kpi-wide">
-                  <strong>
-                    <?php
-                    $plugin_string_for_kpi = strtolower(implode(' ', $site_facts['plugins'] ?? []));
+                  <span class="tm-diagnosis-label">
+                    Das solltest du jetzt machen
+                  </span>
 
-                    if (strpos($plugin_string_for_kpi, 'woocommerce') !== false) {
-                      echo 'Shop-System braucht laufende Kontrolle';
-                    } elseif (strpos($plugin_string_for_kpi, 'elementor') !== false) {
-                      echo 'Page Builder braucht regelmäßige Prüfung';
-                    } elseif (($site_facts['plugin_count'] ?? 0) >= 10) {
-                      echo 'Mehrere Systeme brauchen laufende Kontrolle';
-                    } elseif (!empty($site_facts['external_services'])) {
-                      echo 'Externe Dienste sollten im Blick bleiben';
-                    } else {
-                      echo 'Technische Betreuung spart Zeit und Ausfälle';
-                    }
-                    ?>
-                  </strong>
-                  <span>technische Einordnung</span>
+                  <ul class="tm-diagnosis-checks">
+                    <li>Website regelmäßig technisch prüfen lassen</li>
+                    <li>Updates, Backups und Sicherheit laufend betreuen</li>
+                    <li>Formulare, Ladezeit und sichtbare Fehler im Blick behalten</li>
+                  </ul>
+
                 </div>
 
               </div>
+
             </div>
 
-            <div class="tm-diagnosis-action">
-              <span class="tm-diagnosis-label">Das solltest du jetzt machen</span>
+          </details>
 
-              <ul class="tm-diagnosis-checks">
-                <li>Website regelmäßig technisch prüfen lassen</li>
-                <li>Updates, Backups und Sicherheit laufend betreuen</li>
-                <li>Formulare, Ladezeit und sichtbare Fehler im Blick behalten</li>
-              </ul>
+          <details class="tm-report-accordion">
+
+            <summary class="tm-report-accordion-summary">
+              <div class="tm-report-accordion-left">
+                <span class="tm-report-accordion-icon tm-report-accordion-icon-red" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 4L20 19H4L12 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                    <path d="M12 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="12" cy="17" r="1" fill="currentColor" />
+                  </svg>
+                </span>
+
+                <div>
+                  <strong>Warum Probleme oft erst spät auffallen</strong>
+                  <small>Typische Risiken</small>
+                </div>
+              </div>
+
+              <span class="tm-report-accordion-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </summary>
+
+            <div class="tm-report-accordion-content">
+
+              <div class="tm-maintenance-consequences">
+
+                <span>
+                  Warum laufende Wartung wichtig ist
+                </span>
+
+                <h3>
+                  Eine WordPress-Website funktioniert oft lange unauffällig.
+                  Bis plötzlich etwas nicht mehr funktioniert.
+                </h3>
+
+                <div class="tm-maintenance-consequence-grid">
+
+                  <div>
+                    <strong>Formulare fallen aus</strong>
+                    <p>
+                      Kundenanfragen kommen nicht mehr an,
+                      ohne dass du es sofort bemerkst.
+                    </p>
+                  </div>
+
+                  <div>
+                    <strong>Updates verursachen Fehler</strong>
+                    <p>
+                      Plugins, Theme oder WordPress-Versionen
+                      passen plötzlich nicht mehr sauber zusammen.
+                    </p>
+                  </div>
+
+                  <div>
+                    <strong>Sicherheitslücken bleiben offen</strong>
+                    <p>
+                      Veraltete Komponenten können über längere Zeit
+                      unbemerkt ein Risiko darstellen.
+                    </p>
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
 
-          </div>
-
-          <div class="tm-risk-reality-box">
-
-            <span>Was oft passiert</span>
-
-            <h3>
-              Viele Probleme fallen erst auf, wenn bereits Anfragen verloren gehen.
-            </h3>
-
-            <p>
-              Kontaktformulare funktionieren plötzlich nicht mehr,
-              Updates verursachen Fehler oder Sicherheitsprobleme bleiben lange unbemerkt.
-            </p>
-
-            <p>
-              Genau deshalb werden WordPress-Websites regelmäßig technisch betreut.
-            </p>
-
-          </div>
+          </details>
 
           <!-- Ersetzen Ende -->
 
+          <details class="tm-report-accordion">
 
-          <?php if (!empty($visible_results)) : ?>
-            <div class="tm-action-hints">
-              <div class="tm-action-hints-head">
-                <strong>Weitere öffentlich sichtbare Hinweise</strong>
-                <span>Technische Zusatzinformationen</span>
+            <summary class="tm-report-accordion-summary">
+              <div class="tm-report-accordion-left">
+                <span class="tm-report-accordion-icon tm-report-accordion-icon-indigo" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="6" y="4" width="12" height="16" rx="2" stroke="currentColor" stroke-width="2" />
+                    <path d="M9 9H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <path d="M9 13H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </span>
+
+                <div>
+                  <strong>Weitere technische Hinweise</strong>
+                  <small>Detaillierte Prüfpunkte & Empfehlungen</small>
+                </div>
               </div>
 
-              <div class="tm-action-hint-grid">
-                <?php foreach ($visible_results as $result) : ?>
-                  <article class="tm-action-hint tm-action-hint-<?php echo esc_attr($result['status']); ?>">
-                    <small><?php echo esc_html($result['category']); ?></small>
-                    <h3><?php echo esc_html($result['label']); ?></h3>
+              <span class="tm-report-accordion-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </summary>
 
-                    <?php if (!empty($result['metric'])) : ?>
-                      <em><?php echo esc_html($result['metric']); ?></em>
-                    <?php endif; ?>
+            <div class="tm-report-accordion-content">
 
-                    <p><?php echo esc_html($result['text']); ?></p>
+              <div class="tm-action-hints">
 
-                    <?php if (!empty($result['meaning'])) : ?>
-                      <p class="tm-result-meaning">
-                        <?php echo esc_html($result['meaning']); ?>
-                      </p>
-                    <?php endif; ?>
+                <div class="tm-action-hint-grid">
 
-                    <?php if (!empty($result['tech']) && is_array($result['tech'])) : ?>
-                      <details class="tm-tech-details">
-                        <summary>Technische Details anzeigen</summary>
-                        <div class="tm-tech-box">
-                          <?php foreach ($result['tech'] as $tech_label => $tech_value) : ?>
-                            <p>
-                              <strong><?php echo esc_html($tech_label); ?>:</strong>
-                              <span><?php echo esc_html($tech_value); ?></span>
-                            </p>
-                          <?php endforeach; ?>
-                        </div>
-                      </details>
-                    <?php endif; ?>
-                  </article>
-                <?php endforeach; ?>
-              </div>
-            </div>
-          <?php endif; ?>
+                  <?php foreach ($visible_results as $result) : ?>
 
-          <details class="tm-single-details tm-action-details">
-            <summary>Technische Zusatzinformationen</summary>
+                    <article class="tm-action-hint tm-action-hint-<?php echo esc_attr($result['status']); ?>">
 
-            <div class="tm-single-details-content">
+                      <small><?php echo esc_html($result['category']); ?></small>
 
-              <div class="tm-meaning-box">
-                <p class="tm-evidence-label">Kurz erklärt</p>
-                <p><?php echo esc_html(tm_get_meaning_text($score_points, $risk_count)); ?></p>
-              </div>
+                      <h3><?php echo esc_html($result['label']); ?></h3>
 
-              <div class="tm-site-evidence-box tm-site-evidence-box-v2">
-                <p class="tm-evidence-label">Öffentlich erkannte technische Signale</p>
+                      <?php if (!empty($result['metric'])) : ?>
+                        <em><?php echo esc_html($result['metric']); ?></em>
+                      <?php endif; ?>
 
-                <div class="tm-proof-grid">
-                  <div>
-                    <strong>Eingegebene Domain</strong>
-                    <span><?php echo esc_html($website_host); ?></span>
-                  </div>
+                      <p><?php echo esc_html($result['text']); ?></p>
 
-                  <div>
-                    <strong>Final geprüft</strong>
-                    <span><?php echo !empty($site_facts['final_host']) ? esc_html($site_facts['final_host']) : esc_html($website_host); ?></span>
-                  </div>
+                      <?php if (!empty($result['meaning'])) : ?>
+                        <p class="tm-result-meaning">
+                          <?php echo esc_html($result['meaning']); ?>
+                        </p>
+                      <?php endif; ?>
 
-                  <div>
-                    <strong>Interne Links</strong>
-                    <span><?php echo esc_html($site_facts['internal_link_count']); ?> erkannt</span>
-                  </div>
+                      <?php if (!empty($result['tech']) && is_array($result['tech'])) : ?>
 
-                  <div>
-                    <strong>Formulare</strong>
-                    <span><?php echo esc_html($site_facts['form_count']); ?> erkannt</span>
-                  </div>
+                        <details class="tm-tech-details">
+
+                          <summary>
+                            Technische Details anzeigen
+                          </summary>
+
+                          <div class="tm-tech-box">
+
+                            <?php foreach ($result['tech'] as $tech_label => $tech_value) : ?>
+
+                              <p>
+                                <strong><?php echo esc_html($tech_label); ?>:</strong>
+                                <span><?php echo esc_html($tech_value); ?></span>
+                              </p>
+
+                            <?php endforeach; ?>
+
+                          </div>
+
+                        </details>
+
+                      <?php endif; ?>
+
+                    </article>
+
+                  <?php endforeach; ?>
+
                 </div>
 
-                <?php if (!empty($site_facts['wordpress_signals'])) : ?>
-                  <div class="tm-plugin-box">
-                    <strong>Erkannte WordPress-Signale</strong>
-
-                    <div class="tm-plugin-list">
-                      <?php foreach ($site_facts['wordpress_signals'] as $signal) : ?>
-                        <span class="tm-plugin-badge"><?php echo esc_html($signal); ?></span>
-                      <?php endforeach; ?>
-                    </div>
-
-                    <small>
-                      Diese Signale zeigen öffentlich erkennbare WordPress-Strukturen. Der tatsächliche Update-, Backup- und Sicherheitsstatus ist nur im Backend zuverlässig prüfbar.
-                    </small>
-                  </div>
-                <?php endif; ?>
-
-                <?php if (!empty($site_facts['title'])) : ?>
-                  <div>
-                    <strong>Seitentitel gefunden</strong>
-                    <span><?php echo esc_html(tm_shorten_url_middle($site_facts['title'], 95)); ?></span>
-                  </div>
-                <?php endif; ?>
-
-                <?php if (!empty($site_facts['h1'])) : ?>
-                  <div>
-                    <strong>Hauptüberschrift gefunden</strong>
-                    <span><?php echo esc_html(tm_shorten_url_middle($site_facts['h1'], 95)); ?></span>
-                  </div>
-                <?php endif; ?>
-
-                <?php if (!empty($site_facts['theme'])) : ?>
-                  <div>
-                    <strong>Erkanntes Theme</strong>
-                    <span><?php echo esc_html($site_facts['theme']); ?></span>
-                  </div>
-                <?php endif; ?>
-
-                <?php if (!empty($site_facts['plugins'])) : ?>
-                  <div class="tm-plugin-box">
-                    <strong>Öffentlich erkennbare WordPress-Komponenten</strong>
-
-                    <div class="tm-plugin-list">
-                      <?php foreach ($site_facts['plugins'] as $plugin) : ?>
-                        <span class="tm-plugin-badge"><?php echo esc_html($plugin); ?></span>
-                      <?php endforeach; ?>
-                    </div>
-
-                    <small>
-                      Diese Plugins wurden über öffentlich sichtbare Pfade erkannt. Versionen, Updates und Sicherheitsstatus sind von außen nicht vollständig sichtbar.
-                    </small>
-                  </div>
-                <?php endif; ?>
-
-                <?php if (!empty($site_facts['external_services'])) : ?>
-                  <div>
-                    <strong>Externe Dienste erkannt</strong>
-                    <span><?php echo esc_html(implode(', ', $site_facts['external_services'])); ?></span>
-                  </div>
-                <?php endif; ?>
-
-                <?php if (!empty($site_facts['internal_links'])) : ?>
-                  <div class="tm-evidence-paths">
-                    <strong>Gefundene Pfade auf der geprüften Website</strong>
-                    <div class="tm-path-list">
-
-                      <?php foreach ($site_facts['internal_links'] as $path) : ?>
-
-                        <span class="tm-path-badge">
-                          <?php echo esc_html($path); ?>
-                        </span>
-
-                      <?php endforeach; ?>
-
-                    </div>
-                  </div>
-                <?php endif; ?>
               </div>
 
             </div>
+
           </details>
+
+
+
 
         <?php endif; ?>
 
     </div>
 
-    <section class="tm-single-form-section">
+    <section class="tm-single-form-section" id="tm-check-request-form">
       <div class="tm-check-hero-form-card tm-single-form-card tm-action-form-card">
 
         <?php if (!empty($success)) : ?>
@@ -1955,15 +2096,16 @@ if (!empty($website) && empty($success)) {
             </h2>
 
             <p class="tm-form-intro">
-              Ich schaue mir deine Website persönlich an und sage dir ehrlich,
-              welche Wartungspunkte wirklich relevant sind und welche nicht.
+              Ich prüfe deine WordPress-Website persönlich und sage dir,
+              welche technischen Punkte wirklich betreut werden sollten,
+              bevor Probleme entstehen.
             </p>
 
             <div class="tm-form-benefits">
 
               <div class="tm-form-benefit">
                 <span>✓</span>
-                <p>Persönliche Einschätzung statt automatischer Verkauf</p>
+                <p>Persönliche Einschätzung durch einen echten WordPress-Betreuer</p>
               </div>
 
               <div class="tm-form-benefit">
@@ -2013,7 +2155,7 @@ if (!empty($website) && empty($success)) {
               </p>
 
               <button type="submit" class="tm-btn tm-btn-blue">
-                Persönliche Einschätzung anfragen
+                Website persönlich prüfen lassen
               </button>
 
               <p class="tm-form-trust">
